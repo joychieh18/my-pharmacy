@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "教材代碼索引",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "codes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "codes": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^(?=.*[A-HJ-NP-Z])(?=.*[2-9])[A-HJ-NP-Z2-9]{6}$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "active",
+          "manifest"
+        ],
+        "properties": {
+          "active": {
+            "type": "boolean"
+          },
+          "manifest": {
+            "type": "string",
+            "pattern": "^versions/[a-z0-9-]{1,80}\\.json$"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
