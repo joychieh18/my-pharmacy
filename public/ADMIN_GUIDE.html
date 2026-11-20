@@ -1,0 +1,1203 @@
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>我的藥局｜新手管理手冊</title><style>
+body{margin:auto;max-width:1050px;padding:1.3rem;background:#f3f8f3;color:#173c2d;font:1rem/1.6 system-ui,sans-serif}nav{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.45rem;margin:1rem 0}a{color:#065d42}button,input,textarea{font:inherit}button{border:1px solid #b0cec0;background:#e5f2ea;border-radius:.5rem;padding:.3rem .65rem;cursor:pointer}input[type=search],textarea{width:100%;padding:.45rem;box-sizing:border-box}section{background:white;border:1px solid #d4e6dd;border-radius:.75rem;padding:1rem;margin:1rem 0}li{margin:.7rem 0}dialog{width:min(85vw,45rem)}[hidden]{display:none!important}
+</style></head><body><header><h1>我的藥局 · 新手管理手冊</h1><p>依畫面操作，完成一項即可勾選。此手冊可離線開啟。</p><label>搜尋章節<input type="search" id="search"></label><button id="copy-all">複製完整開發 Prompt</button><p id="status" role="status"></p></header><nav aria-label="章節導覽"><a href="#c1">1. 安裝開發環境</a><a href="#c2">2. 本機啟動</a><a href="#c3">3. GitHub 儲存庫</a><a href="#c4">4. 設定 GitHub Pages</a><a href="#c5">5. 查看 GitHub Actions</a><a href="#c6">6. 更新遊戲網站</a><a href="#c7">7. 開啟教材管理端</a><a href="#c8">8. 新增教材藥品</a><a href="#c9">9. 圖片與包裝</a><a href="#c10">10. 建立主題</a><a href="#c11">11. 手動指定主題代碼</a><a href="#c12">12. 匯出教材發布包</a><a href="#c13">13. 提交教材</a><a href="#c14">14. 驗證教材發布</a><a href="#c15">15. 停用舊代碼</a><a href="#c16">16. 重新啟用舊代碼</a><a href="#c17">17. 建立新教材版本</a><a href="#c18">18. 學生代碼進貨</a><a href="#c19">19. 個人藥品管理</a><a href="#c20">20. 配置 3D 藥架</a><a href="#c21">21. 下載 HTML 成果</a><a href="#c22">22. 重新開始</a><a href="#c23">23. 故障排除</a><a href="#c24">24. 日常維護</a><a href="#c25">25. 安全地請 AI 協助</a></nav><main><section id="c1"><h2>1. 安裝開發環境</h2><p><strong>目的</strong>　完成「安裝開發環境」。</p><p><strong>事前準備</strong>　電腦和終端機</p><p><strong>操作位置</strong>　終端機</p><ol><li><label><input type="checkbox">安裝 Node.js 24 LTS 與 Git。</label> <button data-copy="我在《我的藥局》進行「安裝開發環境」，目前步驟為：安裝 Node.js 24 LTS 與 Git。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">輸入 node -v、npm -v、git --version。</label> <button data-copy="我在《我的藥局》進行「安裝開發環境」，目前步驟為：輸入 node -v、npm -v、git --version。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">進入 my-pharmacy 資料夾後執行 npm ci。</label> <button data-copy="我在《我的藥局》進行「安裝開發環境」，目前步驟為：進入 my-pharmacy 資料夾後執行 npm ci。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　看到工具版本，npm ci 正常結束。</p><p><strong>常見問題與處理</strong>　若終端機找不到指令，重開終端機並確認安裝路徑。</p><button data-copy="我在《我的藥局》進行「安裝開發環境」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+安裝 Node.js 24 LTS 與 Git。
+輸入 node -v、npm -v、git --version。
+進入 my-pharmacy 資料夾後執行 npm ci。">複製整章 AI 求助</button></section><section id="c2"><h2>2. 本機啟動</h2><p><strong>目的</strong>　完成「本機啟動」。</p><p><strong>事前準備</strong>　完成 npm ci</p><p><strong>操作位置</strong>　終端機 / 網站首頁</p><ol><li><label><input type="checkbox">執行 npm run dev。</label> <button data-copy="我在《我的藥局》進行「本機啟動」，目前步驟為：執行 npm run dev。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">開啟終端機顯示網址的 /my-pharmacy/ 路徑。</label> <button data-copy="我在《我的藥局》進行「本機啟動」，目前步驟為：開啟終端機顯示網址的 /my-pharmacy/ 路徑。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按「進入我的藥局」，確認兩座初始空架。</label> <button data-copy="我在《我的藥局》進行「本機啟動」，目前步驟為：按「進入我的藥局」，確認兩座初始空架。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　首頁載入封面，進入總覽可見 OTC-01 和 OTC-02。</p><p><strong>常見問題與處理</strong>　若埠被占用，使用終端機新顯示的埠。</p><button data-copy="我在《我的藥局》進行「本機啟動」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+執行 npm run dev。
+開啟終端機顯示網址的 /my-pharmacy/ 路徑。
+按「進入我的藥局」，確認兩座初始空架。">複製整章 AI 求助</button></section><section id="c3"><h2>3. GitHub 儲存庫</h2><p><strong>目的</strong>　完成「GitHub 儲存庫」。</p><p><strong>事前準備</strong>　GitHub 帳號</p><p><strong>操作位置</strong>　GitHub 的 Code 頁籤</p><ol><li><label><input type="checkbox">本專案儲存庫為 joychieh18/my-pharmacy，可直接開啟。</label> <button data-copy="我在《我的藥局》進行「GitHub 儲存庫」，目前步驟為：本專案儲存庫為 joychieh18/my-pharmacy，可直接開啟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">若要另建副本，在 GitHub 按 New repository，設定名稱、擁有者與可見性。</label> <button data-copy="我在《我的藥局》進行「GitHub 儲存庫」，目前步驟為：若要另建副本，在 GitHub 按 New repository，設定名稱、擁有者與可見性。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">在 Code 複製 HTTPS URL，使用 git clone 再進入資料夾。</label> <button data-copy="我在《我的藥局》進行「GitHub 儲存庫」，目前步驟為：在 Code 複製 HTTPS URL，使用 git clone 再進入資料夾。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　git remote -v 顯示你要操作的儲存庫。</p><p><strong>常見問題與處理</strong>　若資料夾已有下載的 checkout，直接進入它，避免重複複製。</p><button data-copy="我在《我的藥局》進行「GitHub 儲存庫」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+本專案儲存庫為 joychieh18/my-pharmacy，可直接開啟。
+若要另建副本，在 GitHub 按 New repository，設定名稱、擁有者與可見性。
+在 Code 複製 HTTPS URL，使用 git clone 再進入資料夾。">複製整章 AI 求助</button></section><section id="c4"><h2>4. 設定 GitHub Pages</h2><p><strong>目的</strong>　完成「設定 GitHub Pages」。</p><p><strong>事前準備</strong>　具有儲存庫設定權限</p><p><strong>操作位置</strong>　GitHub → Settings → Pages</p><ol><li><label><input type="checkbox">在 Build and deployment 的 Source 選 GitHub Actions。</label> <button data-copy="我在《我的藥局》進行「設定 GitHub Pages」，目前步驟為：在 Build and deployment 的 Source 選 GitHub Actions。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">確認 Pages 設定指向正式儲存庫。</label> <button data-copy="我在《我的藥局》進行「設定 GitHub Pages」，目前步驟為：確認 Pages 設定指向正式儲存庫。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">完成部署後，從 Actions 的 Deploy 紀錄開啟環境網址。</label> <button data-copy="我在《我的藥局》進行「設定 GitHub Pages」，目前步驟為：完成部署後，從 Actions 的 Deploy 紀錄開啟環境網址。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　部署成功後可開首頁與 /my-pharmacy/admin/。</p><p><strong>常見問題與處理</strong>　若網站 404，先查部署工作是否成功，以及網址是否含 /my-pharmacy/。正式部署待遠端驗證。</p><button data-copy="我在《我的藥局》進行「設定 GitHub Pages」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+在 Build and deployment 的 Source 選 GitHub Actions。
+確認 Pages 設定指向正式儲存庫。
+完成部署後，從 Actions 的 Deploy 紀錄開啟環境網址。">複製整章 AI 求助</button></section><section id="c5"><h2>5. 查看 GitHub Actions</h2><p><strong>目的</strong>　完成「查看 GitHub Actions」。</p><p><strong>事前準備</strong>　GitHub 儲存庫已接收程式分支</p><p><strong>操作位置</strong>　GitHub → Actions</p><ol><li><label><input type="checkbox">開啟 Verify and deploy to GitHub Pages。</label> <button data-copy="我在《我的藥局》進行「查看 GitHub Actions」，目前步驟為：開啟 Verify and deploy to GitHub Pages。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">點擊工作紀錄並展開失敗的步驟。</label> <button data-copy="我在《我的藥局》進行「查看 GitHub Actions」，目前步驟為：點擊工作紀錄並展開失敗的步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">在 main 可按 Run workflow 手動執行。</label> <button data-copy="我在《我的藥局》進行「查看 GitHub Actions」，目前步驟為：在 main 可按 Run workflow 手動執行。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　驗證、打包、部署皆顯示成功。</p><p><strong>常見問題與處理</strong>　如果流程尚未列出，確認工作流程檔已進入預設分支。遠端執行待驗證。</p><button data-copy="我在《我的藥局》進行「查看 GitHub Actions」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+開啟 Verify and deploy to GitHub Pages。
+點擊工作紀錄並展開失敗的步驟。
+在 main 可按 Run workflow 手動執行。">複製整章 AI 求助</button></section><section id="c6"><h2>6. 更新遊戲網站</h2><p><strong>目的</strong>　完成「更新遊戲網站」。</p><p><strong>事前準備</strong>　GitHub 寫入權限及已開通 Pages</p><p><strong>操作位置</strong>　本機終端機 / GitHub Pull requests</p><ol><li><label><input type="checkbox">在開發分支執行 npm test 和 npm run build。</label> <button data-copy="我在《我的藥局》進行「更新遊戲網站」，目前步驟為：在開發分支執行 npm test 和 npm run build。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">將變更提交至分支並開啟 Pull Request。</label> <button data-copy="我在《我的藥局》進行「更新遊戲網站」，目前步驟為：將變更提交至分支並開啟 Pull Request。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">審查合併 main，等待 Actions 完成。</label> <button data-copy="我在《我的藥局》進行「更新遊戲網站」，目前步驟為：審查合併 main，等待 Actions 完成。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　部署紀錄對應這次合併，重新載入可見更新。</p><p><strong>常見問題與處理</strong>　若看到舊介面，確認最新部署的 Git SHA 再重整。遠端流程待驗證。</p><button data-copy="我在《我的藥局》進行「更新遊戲網站」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+在開發分支執行 npm test 和 npm run build。
+將變更提交至分支並開啟 Pull Request。
+審查合併 main，等待 Actions 完成。">複製整章 AI 求助</button></section><section id="c7"><h2>7. 開啟教材管理端</h2><p><strong>目的</strong>　完成「開啟教材管理端」。</p><p><strong>事前準備</strong>　已啟動本機網站或已部署網站</p><p><strong>操作位置</strong>　網址列 /my-pharmacy/admin/</p><ol><li><label><input type="checkbox">在網站路徑後加入 admin/。</label> <button data-copy="我在《我的藥局》進行「開啟教材管理端」，目前步驟為：在網站路徑後加入 admin/。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">確認畫面有「教材藥品」「主題教材」「已發布代碼」。</label> <button data-copy="我在《我的藥局》進行「開啟教材管理端」，目前步驟為：確認畫面有「教材藥品」「主題教材」「已發布代碼」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">固定使用同一瀏覽器與同一網址維護草稿。</label> <button data-copy="我在《我的藥局》進行「開啟教材管理端」，目前步驟為：固定使用同一瀏覽器與同一網址維護草稿。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　頁首顯示「教材管理」。</p><p><strong>常見問題與處理</strong>　換分頁網址、埠號或瀏覽器後可能看不到原草稿，請回到原環境。</p><button data-copy="我在《我的藥局》進行「開啟教材管理端」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+在網站路徑後加入 admin/。
+確認畫面有「教材藥品」「主題教材」「已發布代碼」。
+固定使用同一瀏覽器與同一網址維護草稿。">複製整章 AI 求助</button></section><section id="c8"><h2>8. 新增教材藥品</h2><p><strong>目的</strong>　完成「新增教材藥品」。</p><p><strong>事前準備</strong>　準備核實過的學名、劑量及劑型</p><p><strong>操作位置</strong>　教材管理 → 教材藥品</p><ol><li><label><input type="checkbox">按「新增教材藥品」。</label> <button data-copy="我在《我的藥局》進行「新增教材藥品」，目前步驟為：按「新增教材藥品」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">填寫三個必填欄位，並按需要補充其他資料。</label> <button data-copy="我在《我的藥局》進行「新增教材藥品」，目前步驟為：填寫三個必填欄位，並按需要補充其他資料。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按「新增藥品」。</label> <button data-copy="我在《我的藥局》進行「新增教材藥品」，目前步驟為：按「新增藥品」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　在教材藥品清單搜尋到品項。</p><p><strong>常見問題與處理</strong>　若重複，核對學名、劑量與劑型，並使用既有資料。</p><button data-copy="我在《我的藥局》進行「新增教材藥品」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「新增教材藥品」。
+填寫三個必填欄位，並按需要補充其他資料。
+按「新增藥品」。">複製整章 AI 求助</button></section><section id="c9"><h2>9. 圖片與包裝</h2><p><strong>目的</strong>　完成「圖片與包裝」。</p><p><strong>事前準備</strong>　備妥有授權、2 MB 內的 PNG、JPEG 或 WebP</p><p><strong>操作位置</strong>　藥品表單 → 正面包裝圖片／3D 包裝預覽</p><ol><li><label><input type="checkbox">上傳圖片，查看模型正面。</label> <button data-copy="我在《我的藥局》進行「圖片與包裝」，目前步驟為：上傳圖片，查看模型正面。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">選「完整顯示」留白，或「填滿裁切」並調整水平、垂直與放大。</label> <button data-copy="我在《我的藥局》進行「圖片與包裝」，目前步驟為：選「完整顯示」留白，或「填滿裁切」並調整水平、垂直與放大。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">拖曳預覽確認正面，切換盒、瓶或袋並儲存。</label> <button data-copy="我在《我的藥局》進行「圖片與包裝」，目前步驟為：拖曳預覽確認正面，切換盒、瓶或袋並儲存。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　圖片保持比例，模板尺寸依固定常數。</p><p><strong>常見問題與處理</strong>　圖片無法解碼時重新輸出有效圖檔。無圖會顯示白色文字包裝。</p><button data-copy="我在《我的藥局》進行「圖片與包裝」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+上傳圖片，查看模型正面。
+選「完整顯示」留白，或「填滿裁切」並調整水平、垂直與放大。
+拖曳預覽確認正面，切換盒、瓶或袋並儲存。">複製整章 AI 求助</button></section><section id="c10"><h2>10. 建立主題</h2><p><strong>目的</strong>　完成「建立主題」。</p><p><strong>事前準備</strong>　教材藥品清單至少有一項</p><p><strong>操作位置</strong>　教材管理 → 主題教材</p><ol><li><label><input type="checkbox">按「新主題草稿」。</label> <button data-copy="我在《我的藥局》進行「建立主題」，目前步驟為：按「新主題草稿」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">填寫主題名稱，勾選藥品。</label> <button data-copy="我在《我的藥局》進行「建立主題」，目前步驟為：填寫主題名稱，勾選藥品。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">核對「教材預覽」，按「儲存主題草稿」。</label> <button data-copy="我在《我的藥局》進行「建立主題」，目前步驟為：核對「教材預覽」，按「儲存主題草稿」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　重整後可按同名草稿繼續編輯。</p><p><strong>常見問題與處理</strong>　若少了某品項，先回教材藥品確認已保存。</p><button data-copy="我在《我的藥局》進行「建立主題」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「新主題草稿」。
+填寫主題名稱，勾選藥品。
+核對「教材預覽」，按「儲存主題草稿」。">複製整章 AI 求助</button></section><section id="c11"><h2>11. 手動指定主題代碼</h2><p><strong>目的</strong>　完成「手動指定主題代碼」。</p><p><strong>事前準備</strong>　準備一個未使用的代碼</p><p><strong>操作位置</strong>　主題教材 → 主題代碼</p><ol><li><label><input type="checkbox">輸入六位 ASCII 英數混合字元。</label> <button data-copy="我在《我的藥局》進行「手動指定主題代碼」，目前步驟為：輸入六位 ASCII 英數混合字元。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">避免 O、0、I、1 及空白。</label> <button data-copy="我在《我的藥局》進行「手動指定主題代碼」，目前步驟為：避免 O、0、I、1 及空白。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">儲存草稿並於匯出時確認無碰撞。</label> <button data-copy="我在《我的藥局》進行「手動指定主題代碼」，目前步驟為：儲存草稿並於匯出時確認無碰撞。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　草稿以大寫保存，匯出時沒有碰撞警告。</p><p><strong>常見問題與處理</strong>　若代碼已占用，為這個版本另選一組。停用碼也會保留占用。</p><button data-copy="我在《我的藥局》進行「手動指定主題代碼」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+輸入六位 ASCII 英數混合字元。
+避免 O、0、I、1 及空白。
+儲存草稿並於匯出時確認無碰撞。">複製整章 AI 求助</button></section><section id="c12"><h2>12. 匯出教材發布包</h2><p><strong>目的</strong>　完成「匯出教材發布包」。</p><p><strong>事前準備</strong>　已勾選藥品且有正常可讀的索引</p><p><strong>操作位置</strong>　主題教材 → 驗證並匯出發布包</p><ol><li><label><input type="checkbox">核對主題名稱、代碼與教材預覽。</label> <button data-copy="我在《我的藥局》進行「匯出教材發布包」，目前步驟為：核對主題名稱、代碼與教材預覽。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按「驗證並匯出發布包」。</label> <button data-copy="我在《我的藥局》進行「匯出教材發布包」，目前步驟為：按「驗證並匯出發布包」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">解壓 ZIP，核對 public/teaching 內的索引與版本。</label> <button data-copy="我在《我的藥局》進行「匯出教材發布包」，目前步驟為：解壓 ZIP，核對 public/teaching 內的索引與版本。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　得到 my-pharmacy-teaching.zip，圖檔在 teaching/images。</p><p><strong>常見問題與處理</strong>　索引讀取失敗時先確認網站路徑與連線。</p><button data-copy="我在《我的藥局》進行「匯出教材發布包」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+核對主題名稱、代碼與教材預覽。
+按「驗證並匯出發布包」。
+解壓 ZIP，核對 public/teaching 內的索引與版本。">複製整章 AI 求助</button></section><section id="c13"><h2>13. 提交教材</h2><p><strong>目的</strong>　完成「提交教材」。</p><p><strong>事前準備</strong>　已解壓 ZIP，具 GitHub 寫入權限</p><p><strong>操作位置</strong>　本機儲存庫 public/teaching</p><ol><li><label><input type="checkbox">先同步最新 main，再開分支。</label> <button data-copy="我在《我的藥局》進行「提交教材」，目前步驟為：先同步最新 main，再開分支。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">將 ZIP 的 public/teaching 合併至同名目錄，保留已有的版本和圖檔。</label> <button data-copy="我在《我的藥局》進行「提交教材」，目前步驟為：將 ZIP 的 public/teaching 合併至同名目錄，保留已有的版本和圖檔。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">執行 npm run check:teaching -- &lt;基準提交SHA&gt; 並開啟 Pull Request。</label> <button data-copy="我在《我的藥局》進行「提交教材」，目前步驟為：執行 npm run check:teaching -- &lt;基準提交SHA&gt; 並開啟 Pull Request。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　差異只增加新教材與索引項，驗證成功。</p><p><strong>常見問題與處理</strong>　若有多份發布包，逐件依最新索引匯出和合併。遠端提交待驗證。</p><button data-copy="我在《我的藥局》進行「提交教材」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+先同步最新 main，再開分支。
+將 ZIP 的 public/teaching 合併至同名目錄，保留已有的版本和圖檔。
+執行 npm run check:teaching -- &lt;基準提交SHA&gt; 並開啟 Pull Request。">複製整章 AI 求助</button></section><section id="c14"><h2>14. 驗證教材發布</h2><p><strong>目的</strong>　完成「驗證教材發布」。</p><p><strong>事前準備</strong>　確認 main 部署成功</p><p><strong>操作位置</strong>　遊戲 → 代碼進貨</p><ol><li><label><input type="checkbox">另開瀏覽器或無痕視窗。</label> <button data-copy="我在《我的藥局》進行「驗證教材發布」，目前步驟為：另開瀏覽器或無痕視窗。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">用新代碼預覽進貨，檢查名稱、藥品與圖檔。</label> <button data-copy="我在《我的藥局》進行「驗證教材發布」，目前步驟為：用新代碼預覽進貨，檢查名稱、藥品與圖檔。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">確認進貨後到個人目錄查詢。</label> <button data-copy="我在《我的藥局》進行「驗證教材發布」，目前步驟為：確認進貨後到個人目錄查詢。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　找到新藥且未自動上架。</p><p><strong>常見問題與處理</strong>　若找不到代碼，查 GitHub Actions、索引與版本路徑。正式部署待驗證。</p><button data-copy="我在《我的藥局》進行「驗證教材發布」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+另開瀏覽器或無痕視窗。
+用新代碼預覽進貨，檢查名稱、藥品與圖檔。
+確認進貨後到個人目錄查詢。">複製整章 AI 求助</button></section><section id="c15"><h2>15. 停用舊代碼</h2><p><strong>目的</strong>　完成「停用舊代碼」。</p><p><strong>事前準備</strong>　目標代碼已發布</p><p><strong>操作位置</strong>　教材管理 → 已發布代碼</p><ol><li><label><input type="checkbox">按「載入已發布索引」。</label> <button data-copy="我在《我的藥局》進行「停用舊代碼」，目前步驟為：按「載入已發布索引」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">找到目標代碼，按「匯出停用變更」。</label> <button data-copy="我在《我的藥局》進行「停用舊代碼」，目前步驟為：找到目標代碼，按「匯出停用變更」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">只提交 ZIP 內的索引，部署後用遊戲預覽驗證。</label> <button data-copy="我在《我的藥局》進行「停用舊代碼」，目前步驟為：只提交 ZIP 內的索引，部署後用遊戲預覽驗證。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　遊戲提示代碼已停用，舊教材檔案仍保留。</p><p><strong>常見問題與處理</strong>　若索引變更提示過期，重載後再匯出。正式部署待驗證。</p><button data-copy="我在《我的藥局》進行「停用舊代碼」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「載入已發布索引」。
+找到目標代碼，按「匯出停用變更」。
+只提交 ZIP 內的索引，部署後用遊戲預覽驗證。">複製整章 AI 求助</button></section><section id="c16"><h2>16. 重新啟用舊代碼</h2><p><strong>目的</strong>　完成「重新啟用舊代碼」。</p><p><strong>事前準備</strong>　代碼目前為停用狀態</p><p><strong>操作位置</strong>　教材管理 → 已發布代碼</p><ol><li><label><input type="checkbox">載入已發布索引。</label> <button data-copy="我在《我的藥局》進行「重新啟用舊代碼」，目前步驟為：載入已發布索引。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按目標代碼的「匯出重新啟用變更」。</label> <button data-copy="我在《我的藥局》進行「重新啟用舊代碼」，目前步驟為：按目標代碼的「匯出重新啟用變更」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">提交索引並部署，以相同代碼預覽。</label> <button data-copy="我在《我的藥局》進行「重新啟用舊代碼」，目前步驟為：提交索引並部署，以相同代碼預覽。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　代碼恢復，開啟原版本。</p><p><strong>常見問題與處理</strong>　若改指新版本，還原未發布的索引變更。正式部署待驗證。</p><button data-copy="我在《我的藥局》進行「重新啟用舊代碼」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+載入已發布索引。
+按目標代碼的「匯出重新啟用變更」。
+提交索引並部署，以相同代碼預覽。">複製整章 AI 求助</button></section><section id="c17"><h2>17. 建立新教材版本</h2><p><strong>目的</strong>　完成「建立新教材版本」。</p><p><strong>事前準備</strong>　原教材已發布，備妥新代碼</p><p><strong>操作位置</strong>　教材管理 → 主題教材</p><ol><li><label><input type="checkbox">開啟原草稿並調整題名或藥品內容。</label> <button data-copy="我在《我的藥局》進行「建立新教材版本」，目前步驟為：開啟原草稿並調整題名或藥品內容。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">填寫未使用的新代碼，再驗證及匯出。</label> <button data-copy="我在《我的藥局》進行「建立新教材版本」，目前步驟為：填寫未使用的新代碼，再驗證及匯出。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">提交新版發布包並保留舊版，視需要另行停用舊碼。</label> <button data-copy="我在《我的藥局》進行「建立新教材版本」，目前步驟為：提交新版發布包並保留舊版，視需要另行停用舊碼。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　索引含獨立新舊版本，舊路徑仍可查詢。</p><p><strong>常見問題與處理</strong>　若沿用舊碼會撞碼，換新碼後再匯出。正式部署待驗證。</p><button data-copy="我在《我的藥局》進行「建立新教材版本」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+開啟原草稿並調整題名或藥品內容。
+填寫未使用的新代碼，再驗證及匯出。
+提交新版發布包並保留舊版，視需要另行停用舊碼。">複製整章 AI 求助</button></section><section id="c18"><h2>18. 學生代碼進貨</h2><p><strong>目的</strong>　完成「學生代碼進貨」。</p><p><strong>事前準備</strong>　教師提供有效代碼</p><p><strong>操作位置</strong>　首頁 → 我要管理藥品 → 從已知的代碼進貨</p><ol><li><label><input type="checkbox">輸入代碼並按「預覽進貨」。</label> <button data-copy="我在《我的藥局》進行「學生代碼進貨」，目前步驟為：輸入代碼並按「預覽進貨」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">核對新增與重複清單。</label> <button data-copy="我在《我的藥局》進行「學生代碼進貨」，目前步驟為：核對新增與重複清單。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按「確認進貨」後查看結果。</label> <button data-copy="我在《我的藥局》進行「學生代碼進貨」，目前步驟為：按「確認進貨」後查看結果。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　新品加入目錄，重複品項跳過。</p><p><strong>常見問題與處理</strong>　代碼停用或資源錯誤時，聯絡教師確認部署。</p><button data-copy="我在《我的藥局》進行「學生代碼進貨」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+輸入代碼並按「預覽進貨」。
+核對新增與重複清單。
+按「確認進貨」後查看結果。">複製整章 AI 求助</button></section><section id="c19"><h2>19. 個人藥品管理</h2><p><strong>目的</strong>　完成「個人藥品管理」。</p><p><strong>事前準備</strong>　備妥核實過的資料</p><p><strong>操作位置</strong>　首頁 → 我要管理藥品</p><ol><li><label><input type="checkbox">按「我要進貨」填寫學名、劑量、劑型。</label> <button data-copy="我在《我的藥局》進行「個人藥品管理」，目前步驟為：按「我要進貨」填寫學名、劑量、劑型。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">到「管理藥品清單」，使用學名或商品名搜尋。</label> <button data-copy="我在《我的藥局》進行「個人藥品管理」，目前步驟為：到「管理藥品清單」，使用學名或商品名搜尋。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">按「編輯」儲存變更；按「刪除」前核對受影響格位再確認。</label> <button data-copy="我在《我的藥局》進行「個人藥品管理」，目前步驟為：按「編輯」儲存變更；按「刪除」前核對受影響格位再確認。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　新藥出現在目錄；刪除品項後相應格位會清空。</p><p><strong>常見問題與處理</strong>　若 500 MG 與 500mg 撞鍵，使用原品項或核對實際規格。</p><button data-copy="我在《我的藥局》進行「個人藥品管理」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「我要進貨」填寫學名、劑量、劑型。
+到「管理藥品清單」，使用學名或商品名搜尋。
+按「編輯」儲存變更；按「刪除」前核對受影響格位再確認。">複製整章 AI 求助</button></section><section id="c20"><h2>20. 配置 3D 藥架</h2><p><strong>目的</strong>　完成「配置 3D 藥架」。</p><p><strong>事前準備</strong>　個人目錄已有品項</p><p><strong>操作位置</strong>　首頁 → 進入我的藥局</p><ol><li><label><input type="checkbox">拖曳旋轉、滾輪或雙指縮放。按地面＋新增固定位置，也可用下方位置清單。</label> <button data-copy="我在《我的藥局》進行「配置 3D 藥架」，目前步驟為：拖曳旋轉、滾輪或雙指縮放。按地面＋新增固定位置，也可用下方位置清單。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">點藥架或選位置後開啟；輸入名稱並按「儲存名稱」。</label> <button data-copy="我在《我的藥局》進行「配置 3D 藥架」，目前步驟為：點藥架或選位置後開啟；輸入名稱並按「儲存名稱」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">先選藥再點空格。點已上架品項可查看、替換或丟棄。</label> <button data-copy="我在《我的藥局》進行「配置 3D 藥架」，目前步驟為：先選藥再點空格。點已上架品項可查看、替換或丟棄。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">回總覽選架，核對包裝數後才確認刪除。</label> <button data-copy="我在《我的藥局》進行「配置 3D 藥架」，目前步驟為：回總覽選架，核對包裝數後才確認刪除。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　四層十格。RX 放 OTC 提醒 5 秒，未分類提醒 3 秒。</p><p><strong>常見問題與處理</strong>　若 WebGL 無法啟用，可用下方按鈕與格位清單。至少須保留一座架。</p><button data-copy="我在《我的藥局》進行「配置 3D 藥架」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+拖曳旋轉、滾輪或雙指縮放。按地面＋新增固定位置，也可用下方位置清單。
+點藥架或選位置後開啟；輸入名稱並按「儲存名稱」。
+先選藥再點空格。點已上架品項可查看、替換或丟棄。
+回總覽選架，核對包裝數後才確認刪除。">複製整章 AI 求助</button></section><section id="c21"><h2>21. 下載 HTML 成果</h2><p><strong>目的</strong>　完成「下載 HTML 成果」。</p><p><strong>事前準備</strong>　藥架已完成展示配置</p><p><strong>操作位置</strong>　3D 藥局總覽</p><ol><li><label><input type="checkbox">按「下載 HTML 成果」。</label> <button data-copy="我在《我的藥局》進行「下載 HTML 成果」，目前步驟為：按「下載 HTML 成果」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">在下載目錄用支援 WebGL 的瀏覽器開啟 HTML。</label> <button data-copy="我在《我的藥局》進行「下載 HTML 成果」，目前步驟為：在下載目錄用支援 WebGL 的瀏覽器開啟 HTML。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">旋轉並點選藥架與已上架藥品，確認成果。</label> <button data-copy="我在《我的藥局》進行「下載 HTML 成果」，目前步驟為：旋轉並點選藥架與已上架藥品，確認成果。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　成果可獨立開啟，包含已上架品項。</p><p><strong>常見問題與處理</strong>　手機若以檔案預覽開啟，改由支援本機 HTML 的瀏覽器處理。</p><button data-copy="我在《我的藥局》進行「下載 HTML 成果」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「下載 HTML 成果」。
+在下載目錄用支援 WebGL 的瀏覽器開啟 HTML。
+旋轉並點選藥架與已上架藥品，確認成果。">複製整章 AI 求助</button></section><section id="c22"><h2>22. 重新開始</h2><p><strong>目的</strong>　完成「重新開始」。</p><p><strong>事前準備</strong>　檢查是否需先下載成果</p><p><strong>操作位置</strong>　3D 藥局總覽</p><ol><li><label><input type="checkbox">按「重新開始遊戲」。</label> <button data-copy="我在《我的藥局》進行「重新開始」，目前步驟為：按「重新開始遊戲」。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">選取消可返回原配置。</label> <button data-copy="我在《我的藥局》進行「重新開始」，目前步驟為：選取消可返回原配置。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">確認後核對只剩兩座初始空架。</label> <button data-copy="我在《我的藥局》進行「重新開始」，目前步驟為：確認後核對只剩兩座初始空架。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　本次使用端資料清空，已下載成果仍可開啟。</p><p><strong>常見問題與處理</strong>　重整也會清空。請在重置前核對是否已下載成果。</p><button data-copy="我在《我的藥局》進行「重新開始」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+按「重新開始遊戲」。
+選取消可返回原配置。
+確認後核對只剩兩座初始空架。">複製整章 AI 求助</button></section><section id="c23"><h2>23. 故障排除</h2><p><strong>目的</strong>　完成「故障排除」。</p><p><strong>事前準備</strong>　記下網址、操作步驟及錯誤訊息</p><p><strong>操作位置</strong>　瀏覽器 / Actions 工作紀錄</p><ol><li><label><input type="checkbox">404 時核對 /my-pharmacy/ 與部署紀錄。</label> <button data-copy="我在《我的藥局》進行「故障排除」，目前步驟為：404 時核對 /my-pharmacy/ 與部署紀錄。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">教材無法載入時確認索引、版本與圖片路徑。</label> <button data-copy="我在《我的藥局》進行「故障排除」，目前步驟為：教材無法載入時確認索引、版本與圖片路徑。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">3D 不顯示時記下瀏覽器及 WebGL 狀態，試用下方按鈕。</label> <button data-copy="我在《我的藥局》進行「故障排除」，目前步驟為：3D 不顯示時記下瀏覽器及 WebGL 狀態，試用下方按鈕。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　能指出出錯的步驟與受影響的範圍。</p><p><strong>常見問題與處理</strong>　求助時可提供錯誤畫面，先遮蔽任何個資或憑證。</p><button data-copy="我在《我的藥局》進行「故障排除」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+404 時核對 /my-pharmacy/ 與部署紀錄。
+教材無法載入時確認索引、版本與圖片路徑。
+3D 不顯示時記下瀏覽器及 WebGL 狀態，試用下方按鈕。">複製整章 AI 求助</button></section><section id="c24"><h2>24. 日常維護</h2><p><strong>目的</strong>　完成「日常維護」。</p><p><strong>事前準備</strong>　準備獨立分支及正版素材</p><p><strong>操作位置</strong>　docs、public/teaching 和 GitHub Pull requests</p><ol><li><label><input type="checkbox">改動前讀取需求、測試報告及歷史教材規則。</label> <button data-copy="我在《我的藥局》進行「日常維護」，目前步驟為：改動前讀取需求、測試報告及歷史教材規則。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">在測試環境用測試藥品檢查引用；用真實設備驗證點選及觸控。</label> <button data-copy="我在《我的藥局》進行「日常維護」，目前步驟為：在測試環境用測試藥品檢查引用；用真實設備驗證點選及觸控。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">若更新封面，使用原創素材並檢查手機構圖。</label> <button data-copy="我在《我的藥局》進行「日常維護」，目前步驟為：若更新封面，使用原創素材並檢查手機構圖。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　測試通過，原有教材檔案仍完整，封面來源可追溯。</p><p><strong>常見問題與處理</strong>　若測試資料混入正式索引，在發布前移出並重新驗證。</p><button data-copy="我在《我的藥局》進行「日常維護」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+改動前讀取需求、測試報告及歷史教材規則。
+在測試環境用測試藥品檢查引用；用真實設備驗證點選及觸控。
+若更新封面，使用原創素材並檢查手機構圖。">複製整章 AI 求助</button></section><section id="c25"><h2>25. 安全地請 AI 協助</h2><p><strong>目的</strong>　完成「安全地請 AI 協助」。</p><p><strong>事前準備</strong>　備妥可公開的重現資訊</p><p><strong>操作位置</strong>　AI 對話與 Pull Request</p><ol><li><label><input type="checkbox">描述畫面、步驟與錯誤，移除密碼、金鑰和私密資料。</label> <button data-copy="我在《我的藥局》進行「安全地請 AI 協助」，目前步驟為：描述畫面、步驟與錯誤，移除密碼、金鑰和私密資料。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">要求 AI 先查原始碼與測試，再提出具體變更。</label> <button data-copy="我在《我的藥局》進行「安全地請 AI 協助」，目前步驟為：要求 AI 先查原始碼與測試，再提出具體變更。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li><li><label><input type="checkbox">在分支檢查差異、測試及部署紀錄，再決定是否合併。</label> <button data-copy="我在《我的藥局》進行「安全地請 AI 協助」，目前步驟為：在分支檢查差異、測試及部署紀錄，再決定是否合併。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。">複製本步 AI 求助</button></li></ol><p><strong>成功判準</strong>　每項變更有可重現的查核結果。</p><p><strong>常見問題與處理</strong>　AI 未取得畫面或工具輸出時，請它清楚標示未驗證項目。</p><button data-copy="我在《我的藥局》進行「安全地請 AI 協助」，目前步驟為：依序完成本章各步驟。 請先確認我實際看到的頁面、錯誤訊息與操作順序，再逐步協助。不要假裝已看到畫面或已修改網站，也不要要求我提供任何秘密。
+描述畫面、步驟與錯誤，移除密碼、金鑰和私密資料。
+要求 AI 先查原始碼與測試，再提出具體變更。
+在分支檢查差異、測試及部署紀錄，再決定是否合併。">複製整章 AI 求助</button></section></main>
+<dialog id="copy-dialog"><p>請按 Ctrl+C（Mac 按 ⌘C），或長按選取後複製。</p><textarea id="manual" rows="8" readonly></textarea><form method="dialog"><button>關閉</button></form></dialog>
+<textarea id="full" hidden># 我的藥局 My Pharmacy｜v22 正式需求
+
+正式開發依據為使用者補充的原始 v22 規格及 [正式執行指令](REQUIREMENTS_V22_SUPPLEMENT.md)。這份文件整理正式規格與部署目標。若舊措辭相衝突，後續補充決策優先。
+
+## 目的與環境
+
+建立短暫體驗的繁體中文 3D 藥學教育遊戲。使用者不用登入，無後端或付費服務。使用 React、TypeScript、Vite、Three.js、React Three Fiber 和 Drei。正式儲存庫為公開的 joychieh18/my-pharmacy，預設分支 main，GitHub Actions 部署至 GitHub Pages。預期根路徑為 https://joychieh18.github.io/my-pharmacy/，管理端為 admin/、教材為 teaching/。所有程式與素材原創，參考專案僅供概念參考。
+
+## 使用者流程
+
+- 首頁包括原創白色與醫療綠社區藥局封面，以及「我要管理藥品」和「進入我的藥局」。
+- 管理藥品提供「從已知的代碼進貨」、「我要進貨」及「管理藥品清單」。
+- 只在記憶體保存個人目錄、圖片、藥架、擺放及選取。新頁面或重整均為 0 藥品及 OTC-01、OTC-02 兩座空架。頁內導航保留資料。總覽重置需二次確認，取消未完成進貨，不提供離頁提醒、個人備份、匯入及續編。
+- 學名、劑量、劑型為三項必填。商品名、藥理分類、適應症、OTC/RX、包裝、圖片與裁切均選填且直接顯示。分類未填用 null。搜尋英文學名與商品名。
+- 重複鍵為 `[genericName.trim().toLowerCase(), strength.replace(/\s/gu, &#x27;&#x27;).toLowerCase(), dosageFormId]`。維持內部學名空白及原字串，不做同義詞或等價劑量轉換。編輯排除自身 ID，逐一列出目錄刪除的擺放引用並確認後級聯刪除。
+- 包裝固定盒 9×15×5 cm、瓶直徑 8 cm 高 12 cm、袋 10×14×2 cm。手選覆蓋映射，無單品尺寸控制。PNG、JPEG、WebP 原始上限 2,000,000 bytes，最長邊縮至 1024 px，不放大。保持圖片比例，提供完整顯示、填滿裁切與 3D 預覽。無圖採白色包裝印學名和劑量。
+
+## 固定 27 種劑型與包裝
+
+| ID | 英文／繁體中文 | 預設包裝 |
+|---|---|---|
+| tablet | Tablet／錠劑 | 盒 |
+| powder | Powder／散劑 | 袋 |
+| granules | Granules／顆粒劑 | 袋 |
+| chewable-tablet | Chewable tablet／咀嚼錠 | 盒 |
+| orally-disintegrating-tablet | Orally disintegrating tablet／口崩錠 | 盒 |
+| extended-release-tablet | Extended-release tablet／緩釋錠 | 盒 |
+| enteric-coated-tablet | Enteric-coated tablet／腸溶錠 | 盒 |
+| oral-solution | Oral solution／口服液劑 | 瓶 |
+| oral-suspension | Oral suspension／口服懸液劑 | 瓶 |
+| syrup | Syrup／糖漿劑 | 瓶 |
+| oral-drops | Oral drops／口服滴劑 | 瓶 |
+| cream | Cream／乳膏 | 盒 |
+| ointment | Ointment／軟膏 | 盒 |
+| gel | Gel／凝膠 | 盒 |
+| lotion | Lotion／洗劑 | 瓶 |
+| transdermal-patch | Transdermal patch／經皮貼片 | 盒 |
+| topical-solution | Topical solution／外用液劑 | 瓶 |
+| eye-drops | Eye drops／眼用滴劑 | 瓶 |
+| eye-ointment | Eye ointment／眼用軟膏 | 盒 |
+| ear-drops | Ear drops／耳用滴劑 | 瓶 |
+| nasal-spray | Nasal spray／鼻用噴劑 | 瓶 |
+| inhalation-aerosol | Inhalation aerosol／吸入氣霧劑 | 盒 |
+| inhalation-powder | Inhalation powder／吸入粉劑 | 盒 |
+| injection | Injection／注射劑 | 盒 |
+| suppository | Suppository／栓劑 | 盒 |
+| vaginal-tablet | Vaginal tablet／陰道錠 | 盒 |
+| capsule | Capsule／膠囊 | 盒 |
+
+## 固定場景及操作
+
+採配置 A，公尺為單位。場景 9×7×3。OTC-01／02／03 的 x 為 2.7、4.5、6.3，z=3、yaw=180。OTC-04 為 (0.65,0,1.75)、90°，OTC-05 為 (8.35,0,1.75)、−90°。RX-01／02 的 x 為 3.2、5.6，z=6.55、yaw=180。櫃檯中心 (3.55,0,4.55)，寬 6.80、深 0.65、高 1.05，右側開口 2.05。工作桌中心 (1.25,0,6.10)，寬 1.40、深 0.60、高 0.85。入口 x=4.5、z=0、寬 1.5、高 2.2。磁磚 0.60 方形，邊緣裁切。明亮柔光、陰影與剖面視圖。
+
+架外廓 1.20×1.80×0.40，OTC 開放式，RX 白色金屬背板 0.01；層板厚 0.02，每架由上到下 2／3／3／2 格。選藥後高亮有效空格，一格一包裝，可重複同品項。每位置一架，總計 1–7 架，兩區各可為零。空位顯示＋。名稱可同名、可空白、上限 20 個使用者可見字元。顯示固定位置編號，不允許拖動。總覽選架後可確認刪架，保留目錄。細部視角先選藥再點空格，替換和丟棄無二次確認。點藥品只顯示學名、商品名、劑量、劑型。RX 放 OTC 提醒 5 秒，未分類放任一區提醒 3 秒，均不阻擋。總覽透視相機、旋轉縮放與預設恢復；細部限制正面左右視角。手機上下分區，支援觸控。
+
+## 管理與發布
+
+獨立無登入管理端，草稿與使用者隔離，無公開寫入或前端憑證。管理員逐一建立、編輯藥品，建立、選藥與預覽主題草稿，手動輸入六位 ASCII 英數混合碼，排除 O/0/I/1，忽略大小寫且存大寫。發布包含靜態驗證索引、不可變版本 JSON 和相對路徑圖片，由維護者提交及部署。CI 檢查 schema、圖檔、碰撞、路徑及歷史不可變性。代碼永久占用，新內容用新版本新碼；停用及重啟只改索引。代碼並非保密憑證。進貨先取索引、驗證狀態、取版本及圖檔，預覽新項與重複，以最新目錄原子追加。首筆有效項目優先，重複不覆蓋。個人副本不回寫。
+
+## 分享、手冊與驗收
+
+總覽下載唯讀單一 HTML，優先完全離線。只包含必要的已上架藥品、圖片、架名與當前配置，安全序列化，支援縮放、旋轉、選架和查看品項，無編輯或續玩。重新開始後仍可開啟。提供可離線的繁體中文新手手冊，涵蓋準備、操作位置、步驟、成功判準、常見問題及 AI 求助，含搜尋、核取、步驟、章節及完整 Prompt 複製與手動備援。驗收區分單元、整合、瀏覽器模擬、實體裝置與正式部署。測試資料不得進入正式初始目錄或索引。
+
+
+# 我的藥局 My Pharmacy｜v22 正式開發執行指令
+
+## 一、任務確認
+
+我已閱讀你所提供的 v22 開發前審查報告，原則上接受你提出的技術架構、資料模型、場景配置驗證結果、教材發布流程及分階段開發方式。
+
+現在正式授權你進入程式開發階段。
+
+請以先前提供的《My Pharmacy 正式開發 Prompt v22》作為主要需求規格，並結合本次補充指令進行實作。
+
+本次任務的目標是完成一套實際可執行、可操作、可測試，且能部署至 GitHub Pages 的完整 Web 3D 藥學教育遊戲。
+
+**請不要再次只提供開發計畫、架構說明、虛擬介面示意或未實作的程式範例。請直接在工作環境中建立、修改及測試實際程式檔案。**
+
+---
+
+## 二、已批准的技術架構
+
+接受以下開發技術：
+
+- React
+- TypeScript
+- Vite
+- Three.js
+- React Three Fiber
+- Drei
+- GitHub Pages
+- GitHub Actions
+- 適當的單元測試及瀏覽器端測試工具
+
+你可以依照實際需求選擇其他必要的開源套件，但需確認其授權、相容性、維護狀況及效能。
+
+請避免不必要的套件及過度複雜的架構。
+
+使用者端僅需記憶體狀態管理，可採用 React Context、useReducer、Zustand 或其他適合的輕量方式，由你合理選擇。
+
+不需要建立額外的後端伺服器、雲端資料庫、使用者登入系統或付費服務。
+
+管理端可使用獨立 IndexedDB 保存教材草稿，但不得將使用者端的個人遊戲資料永久儲存於 IndexedDB、LocalStorage 或 SessionStorage。
+
+---
+
+## 三、參考專案及授權處理
+
+接受你針對以下參考專案所完成的開發前稽核：
+
+https://github.com/Ahmed525-12/pharmacy-3d-walkthrough
+
+稽核版本：
+
+8c27a6dfbac319229d0214889ba0dad8295b306e
+
+由於參考專案自有程式、模型及配置的再利用授權尚未完整確認，因此：
+
+1. 採用原創程式碼、3D 模型、場景、封面及介面。
+2. 可以參考其技術概念、操作邏輯、鏡頭控制及場景呈現方式。
+3. 不直接複製授權不明的原始程式碼、圖片、模型或其他資產。
+4. 保留 Three.js 及其他第三方套件所要求的授權聲明。
+5. 建立 THIRD_PARTY_NOTICES.md 或其他適當的授權紀錄文件。
+6. 不需要等待參考專案的授權確認才開始開發，請直接以原創實作方式進行。
+
+---
+
+## 四、GitHub Repository 與開發環境
+
+GitHub Repository 名稱正式確定為：
+
+`my-pharmacy`
+
+預計採用以下部署方式：
+
+- 主要分支：main
+- 建置工具：Vite
+- 部署平台：GitHub Pages
+- 部署流程：GitHub Actions
+- 網站形式：靜態網站
+- 不使用額外付費後端
+
+正式 GitHub 擁有者及儲存庫公開範圍尚未指定。
+
+請先檢查目前工作環境：
+
+1. 確認是否存在可使用的 Git checkout。
+2. 確認目前工作目錄及 Git remote。
+3. 確認 Node.js、套件管理工具及其他必要環境。
+4. 確認是否能建立、修改、建置及測試專案。
+5. 若存在既有專案，先檢查其內容，不得任意覆蓋或刪除既有檔案。
+
+若目前沒有可使用的 my-pharmacy Git checkout：
+
+- 若工作環境允許，請直接建立獨立的 my-pharmacy 本機專案。
+- 完成專案初始化及實際程式開發。
+- 建立 GitHub Pages 部署所需的設定檔。
+- 保留後續設定 Git remote 與部署的能力。
+- 不得因尚未取得正式 GitHub Repository 而停止其他開發工作。
+
+若正式部署需要我登入 GitHub、建立 Repository、授予權限或連接 Codex 工作環境，請提供適合新手操作的逐步教學。
+
+正式發布前須向我確認正確的 Repository 擁有者及公開範圍，不得自行選擇不明的帳號或公開私人儲存庫。
+
+---
+
+## 五、開發前審查中待確認事項的處理決策
+
+以下為你此次審查報告所提出的技術問題之處理原則。除特別標記者外，授權你採用下列方案進行第一版實作，後續可依實際測試結果調整。
+
+### 5.1 圖片容量及圖片處理
+
+採用以下規格：
+
+- 單張原始上傳圖片上限為 2,000,000 bytes。
+- 支援 PNG、JPG、JPEG、WebP。
+- 圖片最長邊自動縮小至 1024 px。
+- 保持原始圖片比例。
+- 小於 1024 px 的圖片不額外放大。
+- 提供圖片裁切及預覽功能。
+- 提供完整顯示與填滿裁切兩種模式。
+- 使用正規化裁切座標或其他合理的方式保存裁切資訊。
+- 不得因圖片比例不同而使藥品模型尺寸改變。
+
+圖片壓縮格式及品質參數交由你實作、測試並選擇合理設定。
+
+應兼顧圖片辨識度、記憶體使用量與 HTML 成果檔案大小。
+
+若無上傳圖片，則使用白色包裝模型，並自動印上英文學名及劑量。長文字須自動換行或縮小字級，避免超出模型表面。
+
+### 5.2 藥品重複判斷
+
+維持三欄共同判定：
+
+- 英文學名 genericName
+- 劑量 strength
+- 劑型 dosageFormId
+
+英文學名正規化方式：
+
+`genericName.trim().toLowerCase()`
+
+劑量正規化方式：
+
+`strength.replace(/\s/gu, &quot;&quot;).toLowerCase()`
+
+劑型以固定 ID 比較。
+
+補充規則：
+
+- 保留英文學名內部空白的差異。
+- 不自動合併學名同義詞。
+- 不拆分複方成分。
+- 不進行劑量等價單位換算。
+- 500 MG 與 500mg 視為相同。
+- 0.5 g 與 500 mg 視為不同。
+- 保留原始輸入文字供介面顯示。
+- 同批教材中若有重複品項，依清單順序保留第一筆有效項目。
+- 主題進貨遇到既有重複品項時，自動跳過，不更新原品項。
+- 編輯藥品時，重複檢查應排除該品項自身 ID。
+
+新增、編輯、主題進貨、教材發布驗證應共用同一套驗證邏輯。
+
+### 5.3 藥架名稱
+
+維持選填、可同名、最多 20 字元的規則。
+
+採用使用者實際看見的字元作為計數基準，合成 Unicode 字元應合理處理。
+
+可優先使用 Intl.Segmenter 或其他可靠的實作方式，並提供必要的相容處理。
+
+不同藥架即使名稱相同，仍須透過固定位置編號辨識。
+
+### 5.4 圖片及 3D 資源清理
+
+接受你的圖片資源管理提案。
+
+請在適當時機釋放：
+
+- 不再使用的 Blob URL。
+- Three.js Texture。
+- 不再使用的 Geometry。
+- 不再使用的 Material。
+- 已卸載場景及相關 GPU 資源。
+- 不再需要的事件監聽器及非同步請求。
+
+共享模型、共享材質及共享貼圖不得因單一物件刪除而被錯誤釋放。
+
+重新開始遊戲時，須確實清除本次體驗的資料與資源，並取消或隔離尚未完成的非同步進貨請求，避免舊資料回流。
+
+管理端圖片的實體刪除必須先檢查全部草稿及已發布版本的引用。
+
+若無法安全確認圖片已不再使用，第一版可暫時保留該圖片，不必實作高風險的自動清除功能。
+
+### 5.5 舊教材相容性
+
+目前以全新專案進行開發。
+
+若尚無既有正式教材，不需要額外建立複雜的舊版資料遷移功能。
+
+但資料結構應具有明確的 schemaVersion 或等效版本識別機制。
+
+未來若需匯入舊教材，遇到缺少必填欄位、非法劑型或不相容資料時，應提供明確錯誤訊息，不得自行捏造藥品資料。
+
+### 5.6 3D 光影、美術及裝置效能
+
+以下細節授權你依實際渲染結果合理決定：
+
+- 精確光源位置。
+- 光源強度及色溫。
+- 陰影解析度。
+- 相機位置、FOV 及旋轉範圍。
+- 縮放上下限。
+- 金屬支柱尺寸。
+- 層板實際高度。
+- 金屬、塑膠及其他材質的渲染參數。
+- 磁磚接縫細節。
+- 浮動提示位置及動效。
+- 桌面與行動裝置的效能最佳化。
+- 響應式介面及操作區域配置。
+
+不需要在實作前逐項再次詢問我。
+
+請先完成合理的第一版，再提供實際渲染畫面及參數表供我驗收。
+
+不得因此更動已確認的家具外部尺寸、固定座標、藥架容量或核心操作規則。
+
+---
+
+## 六、必須維持的核心功能
+
+### 6.1 遊戲定位與生命週期
+
+My Pharmacy 是以藥學教育、短暫體驗及成果展示為目的的互動式 3D 網頁遊戲。
+
+必須符合：
+
+- 不需要學生登入。
+- 初始藥品種類為零。
+- 初始具有 OTC-01、OTC-02 兩座空藥架。
+- 初始無任何已上架藥品。
+- 同一次遊戲期間，內部頁面切換保留資料。
+- 重新整理網頁後恢復初始狀態。
+- 關閉頁面後不永久保存個人進度。
+- 不提供離頁提醒。
+- 不提供個人 JSON 備份、匯入、還原或合併。
+- 不提供已分享成果的續編功能。
+- 僅於 3D 藥局總覽提供重新開始遊戲按鈕。
+- 重新開始前須二次確認。
+
+已下載的 HTML 成果及已發布的管理端教材不受重新開始功能影響。
+
+### 6.2 首頁及基本操作介面
+
+正式名稱：
+
+我的藥局 My Pharmacy
+
+首頁採用白色與醫療綠為主要美術風格。
+
+封面為原創、簡化的 3D 社區藥局外觀。
+
+首頁僅提供兩個主要操作入口：
+
+1. 我要管理藥品。
+2. 進入我的藥局。
+
+「我要管理藥品」提供：
+
+1. 從已知的代碼進貨。
+2. 我要進貨。
+3. 管理藥品清單。
+
+請勿任意新增會改變主要使用者流程的功能。
+
+### 6.3 藥品資料管理
+
+僅以下三項為必填：
+
+- 英文學名。
+- 劑量。
+- 劑型。
+
+其餘選填欄位直接顯示，不使用預設收合的方式：
+
+- 商品名。
+- 藥理分類。
+- 適應症。
+- OTC／RX 分類。
+- 3D 包裝模板。
+- 正面包裝圖片。
+
+藥理分類及劑量皆使用自由文字。
+
+劑型使用 v22 已確認的 27 種固定中英文並列選項，維持正式清單順序及已確認的預設包裝映射。
+
+不得自行新增、刪除或合併劑型。
+
+藥品清單提供英文學名及商品名搜尋，採用不區分大小寫的部分文字比對。
+
+建議獨立藥架場景的選藥清單共用相同搜尋元件。
+
+刪除個人藥品目錄品項時，須二次確認，並同時移除全藥局中所有引用該品項的擺放紀錄。
+
+### 6.4 固定 3D 包裝模型
+
+所有藥品使用下列三種標準包裝模板：
+
+- 藥盒：寬 9 × 高 15 × 深 5 cm。
+- 藥瓶：直徑 8 cm、高 12 cm。
+- 藥袋：寬 10 × 高 14 × 深 2 cm。
+
+**管理端及使用者端均不得提供任何個別藥品模型尺寸調整功能。**
+
+不得提供：
+
+- 長寬高輸入欄位。
+- 模型尺寸調整滑桿。
+- 個別藥品縮放比例設定。
+- 因圖片尺寸不同而自動改變模型尺寸的功能。
+
+允許使用者選擇三種包裝模板、裁切圖片、調整貼圖及縮放觀看視角。
+
+未指定模板時，依已確認的 27 種劑型映射自動選擇。
+
+### 6.5 OTC／RX 分類提醒
+
+未填寫 OTC／RX 分類時，顯示為未分類，不自行推論藥品分類。
+
+- OTC 放入 OTC 區：允許。
+- OTC 放入 RX 區：允許。
+- RX 放入 RX 區：允許。
+- RX 放入 OTC 區：允許，顯示 5 秒警告。
+- 未分類放入任一區：允許，顯示 3 秒提示。
+
+提示不阻擋操作，不形成永久警告標記。
+
+放置及替換藥品皆適用相同規則。
+
+### 6.6 藥架管理
+
+全藥局最多七座藥架，最少維持一座。
+
+- OTC 固定位置五個。
+- RX 固定位置兩個。
+- 各區可為零座，但全藥局至少一座。
+- 每個固定位置最多建立一座藥架。
+- 尚未建立藥架的位置顯示地面加號。
+- 不允許任意拖移藥架位置。
+- OTC 為開放式金屬藥架。
+- RX 為白色金屬藥架，具有背板。
+
+每座藥架：
+
+- 寬 120 cm。
+- 高 180 cm。
+- 深 40 cm。
+- 層板厚 2 cm。
+- RX 背板厚 1 cm。
+- 四層格位依序為 2、3、3、2。
+- 每格最多放置一個實體包裝。
+- 每架最多十個包裝。
+- 全藥局最多七十個包裝。
+- 允許同種藥品重複擺放。
+- 不限制每架最低藥品種類，允許完全空架。
+- 不設置實體格位隔板，採用視覺框線。
+- 空格平時為淡色框線，選藥後加強合法放置格位。
+
+刪除整座藥架需要二次確認，並清除該架的擺放紀錄，但不得刪除個人藥品目錄中的品項。
+
+單格藥品替換與丟棄均不需要二次確認。
+
+### 6.7 藥品點擊資訊
+
+未點選架上藥品時，不額外顯示浮動藥名標籤。
+
+點擊後顯示：
+
+- 英文學名。
+- 商品名。
+- 劑量。
+- 劑型。
+
+商品名未填寫時可以隱藏該欄。
+
+其他選填資訊仍保留在個人藥品管理頁，不額外加入藥架點擊資訊面板。
+
+---
+
+## 七、正式 3D 場景規格
+
+採用已批准的配置 A。
+
+室內尺寸為 9 × 7 × 3 m。
+
+固定藥架位置如下：
+
+| 位置 | X | Y | Z | Y 軸旋轉 |
+|---|---:|---:|---:|---:|
+| OTC-01 | 2.70 | 0 | 3.00 | 180° |
+| OTC-02 | 4.50 | 0 | 3.00 | 180° |
+| OTC-03 | 6.30 | 0 | 3.00 | 180° |
+| OTC-04 | 0.65 | 0 | 1.75 | 90° |
+| OTC-05 | 8.35 | 0 | 1.75 | −90° |
+| RX-01 | 3.20 | 0 | 6.55 | 180° |
+| RX-02 | 5.60 | 0 | 6.55 | 180° |
+
+所有尺度採公尺，座標以物件底部中心等一致的定位基準實作。
+
+其他家具：
+
+- 服務櫃檯中心：(3.55, 0, 4.55)。
+- 服務櫃檯：寬 6.80 × 深 0.65 × 高 1.05 m。
+- 櫃檯右側開口：2.05 m。
+- 調劑工作桌中心：(1.25, 0, 6.10)。
+- 調劑工作桌：寬 1.40 × 深 0.60 × 高 0.85 m。
+- 入口位於 z=0、中心 x=4.50。
+- 入口寬 1.50 m、高 2.20 m。
+- 地板磁磚：60 × 60 cm。
+
+美術及鏡頭：
+
+- 白色與醫療綠為主色調。
+- 採簡化、乾淨的 3D 社區藥局風格。
+- 採適當的剖面式牆壁及屋頂處理。
+- 明亮柔和的室內白光。
+- 柔和即時陰影，依裝置效能調整。
+- 總覽採入口斜上方俯視的透視相機。
+- 支援總覽旋轉、縮放及恢復預設視角。
+- 獨立藥架使用淺灰白背景。
+- 獨立藥架採正面及有限左右旋轉視角。
+- 桌面及行動裝置採合理的響應式介面。
+- 第一版不需要第一人稱漫遊。
+
+你已完成配置 A 的平面足跡驗證，本次應進一步確認實際 3D 渲染下的遮擋、可視性、射線點選與觸控操作。
+
+如果實際渲染發現核心配置存在問題，請先嘗試透過相機、剖面方式及介面改善。若仍需修改已確認的座標或尺寸，須提出具體理由並由我確認。
+
+---
+
+## 八、教材管理端與 GitHub Pages 發布
+
+接受你提出的獨立管理端方案。
+
+### 8.1 管理端
+
+管理端使用獨立網址，例如：
+
+`/admin/`
+
+實際部署路徑須相容 GitHub Pages 的 Repository 子路徑。
+
+管理頁不需要額外登入機制。
+
+提供以下功能：
+
+- 逐一新增管理端藥品。
+- 編輯與管理教材草稿。
+- 建立主題教材。
+- 選擇主題包含的藥品。
+- 預覽主題內容。
+- 手動輸入主題代碼。
+- 驗證教材及圖片。
+- 匯出可供 GitHub 維護者發布的完整發布包。
+
+管理端草稿可使用獨立 IndexedDB。
+
+不得將 GitHub 寫入憑證、Personal Access Token、API 金鑰或其他秘密資訊寫入前端程式碼。
+
+管理端無登入不代表具有公開寫入權限。
+
+真正的教材發布必須透過具有 GitHub Repository 寫入權限的維護者完成。
+
+### 8.2 主題代碼
+
+維持 v22 的正式規格：
+
+- 管理員自行輸入。
+- 恰好六位 ASCII 英數字元。
+- 至少包含一位英文字母及一位數字。
+- 統一儲存為大寫。
+- 使用者輸入時忽略大小寫。
+- 排除 O、0、I、1。
+- 永久有效，直到管理員手動停用。
+- 可停用及重新啟用。
+- 所有已發布代碼永久保留其占用狀態，不得分配給其他版本。
+- 不提供隨機代碼生成機制。
+
+原始輸入須先驗證合法字元，再進行大寫正規化。
+
+應拒絕不合法的空白、標點符號及非 ASCII 字元。
+
+### 8.3 版本與發布
+
+每次修改已發布教材內容，均須建立新版本及新代碼。
+
+舊版本內容不得直接覆蓋。
+
+停用及重新啟用只修改索引狀態，維持原本版本與代碼的對應關係。
+
+請建立：
+
+- 版本化教材 JSON。
+- 代碼索引。
+- 圖片資源目錄。
+- Schema 驗證。
+- 代碼碰撞檢查。
+- 圖片引用完整性檢查。
+- 安全的相對路徑驗證。
+- GitHub Actions 發布前驗證流程。
+
+發布前的 CI 檢查須避免既有版本被意外修改或刪除。
+
+主題代碼只是公開教材的查找方式，不是私人資料的存取驗證機制。
+
+停用代碼不代表能撤回使用者先前取得的資料。
+
+### 8.4 使用端主題進貨
+
+使用者輸入代碼後：
+
+1. 取得靜態代碼索引。
+2. 驗證代碼狀態。
+3. 取得相應教材版本及圖片。
+4. 檢查資料完整性。
+5. 顯示新藥品及重複品項的進貨預覽。
+6. 確認後以最新個人目錄重新進行重複檢查。
+7. 一次提交有效且不重複的藥品資料。
+
+重複品項直接跳過，不更新既有品項。
+
+不得因進貨失敗而留下未完成的資料。
+
+個人進貨後的資料修改不得影響管理端教材或其他使用者。
+
+---
+
+## 九、唯讀互動式 3D HTML 成果分享
+
+接受你提出的分享方案，並優先實作可獨立開啟的單一 HTML 檔案。
+
+使用者可在 3D 藥局總覽下載目前成果。
+
+匯出內容包含：
+
+- 完整 3D 藥局場景。
+- 當前藥架配置與自訂名稱。
+- 已上架藥品。
+- 藥品擺放位置。
+- 已上架藥品的必要顯示資訊。
+- 包裝模板。
+- 所需圖片資源。
+
+不包含：
+
+- 未上架的藥品。
+- 未上架藥品的圖片。
+- 管理端教材草稿。
+- 使用者完整藥品目錄。
+- 編輯功能。
+- 備份及還原功能。
+
+匯出的 HTML 必須支援：
+
+- 開啟 3D 藥局。
+- 旋轉及縮放。
+- 點擊藥架。
+- 查看藥品資訊。
+- 適當的響應式介面。
+
+不得提供新增、刪除、替換、重新開始、進貨或續編功能。
+
+不得依賴原始使用者頁面的 Blob URL、IndexedDB、LocalStorage 或其他本機遊戲狀態。
+
+優先將必要的唯讀檢視器及圖片資源編入單一 HTML。
+
+若全離線單檔方案存在嚴重體積或裝置相容性問題，可評估使用固定版本的外部檢視器資源，但必須明確說明限制，並提供載入失敗時的處理方式。
+
+所有使用者文字及序列化資料均須安全處理，避免 XSS、HTML 或 Script 注入等問題。
+
+請實際驗證下載 HTML 後，即使重新開始遊戲或清除原始頁面資料，該成果仍可正常開啟。
+
+---
+
+## 十、原創遊戲封面及介面設計
+
+請實際製作原創的簡化 3D 社區藥局封面。
+
+美術要求：
+
+- 白色與醫療綠為主色。
+- 明亮、乾淨、親切。
+- 適合大學藥學教育使用。
+- 保留簡化 3D 模型的質感。
+- 與正式遊戲場景維持一致的視覺語言。
+- 電腦及手機版皆具有合理的構圖。
+
+若目前環境具有可用的圖片生成能力，可以使用該能力製作原創封面。
+
+若沒有圖片生成工具，則可使用自行建立的原創 3D 場景、程序化建模或 SVG 等適當方式製作，不得只提供圖片生成 Prompt 而宣稱封面已完成。
+
+正式交付時請提供實際封面資產。
+
+整體介面採精簡、直覺、現代的設計，避免不必要的裝飾及複雜的多層選單。
+
+---
+
+## 十一、互動式新手管理手冊
+
+除了實際遊戲程式之外，仍須交付原先 v22 要求的繁體中文 HTML 互動式新手管理手冊。
+
+手冊目標對象為沒有程式開發經驗、不了解 GitHub 或網頁部署的人員。
+
+手冊不得只提供概念介紹。
+
+每個章節應包含：
+
+- 操作目的。
+- 操作前準備。
+- 實際操作畫面或位置。
+- 逐步執行方式。
+- 成功判斷標準。
+- 常見錯誤。
+- 排除錯誤的方法。
+- 可直接複製交給 AI 的求助 Prompt。
+
+手冊應涵蓋至少以下內容：
+
+1. 開發環境安裝。
+2. 本機啟動遊戲。
+3. GitHub Repository 建立。
+4. GitHub Pages 部署。
+5. GitHub Actions 操作。
+6. 更新遊戲網站。
+7. 管理端網址及操作方式。
+8. 逐一建立藥品資料。
+9. 圖片上傳、裁切及模型預覽。
+10. 建立主題教材。
+11. 建立主題代碼。
+12. 匯出教材發布包。
+13. 將教材提交至 GitHub。
+14. 驗證教材發布成功。
+15. 停用舊代碼。
+16. 重新啟用舊代碼。
+17. 建立新教材版本。
+18. 使用端代碼進貨。
+19. 個人藥品管理。
+20. 3D 藥架及格位操作。
+21. HTML 成果下載及開啟。
+22. 重新開始遊戲。
+23. 常見錯誤排除。
+24. 日常維護及更新。
+25. 使用 AI 協助修改程式的安全注意事項。
+
+HTML 手冊須支援：
+
+- 單一 HTML 檔案。
+- 離線開啟。
+- 章節導覽。
+- 內容搜尋。
+- 操作核取清單。
+- 個別步驟 AI Prompt 一鍵複製。
+- 整章 Prompt 一鍵複製。
+- 完整開發 Prompt 一鍵複製。
+- 複製失敗時的手動複製備援。
+
+請根據實際完成的網站介面撰寫手冊，不能將尚未實作的畫面描述為已存在的功能。
+
+若某流程因 GitHub 權限等外部因素尚未實際驗證，須明確標記。
+
+---
+
+## 十二、正式開發執行順序
+
+請依照以下階段實際執行。
+
+### 第一階段：專案初始化與核心規則
+
+- 建立實際專案結構。
+- 建立 TypeScript 資料模型。
+- 建立 27 種固定劑型字典。
+- 建立已批准的包裝映射。
+- 建立固定包裝模型參數。
+- 建立配置 A 場景資料。
+- 建立藥品新增、編輯及刪除規則。
+- 建立三項重複判斷。
+- 建立記憶體狀態管理。
+- 建立藥架、格位及擺放交易規則。
+- 建立搜尋及重新開始功能。
+- 執行單元測試。
+
+### 第二階段：首頁及藥品管理
+
+- 實作原創封面。
+- 實作首頁。
+- 實作藥品管理的三個入口。
+- 實作手動進貨。
+- 實作藥品目錄。
+- 實作圖片驗證、裁切及預覽。
+- 實作必填及選填欄位。
+- 實作編輯與刪除功能。
+- 測試實際介面。
+
+### 第三階段：3D 藥局及藥品互動
+
+- 建立配置 A 的完整場景。
+- 建立地板、牆壁、入口、櫃檯、調劑桌。
+- 建立兩種藥架模型。
+- 建立三種固定藥品包裝。
+- 實作總覽相機。
+- 實作獨立藥架場景。
+- 實作新增及刪除藥架。
+- 實作藥架命名。
+- 實作格位高亮。
+- 實作放置、替換及丟棄藥品。
+- 實作分類提醒。
+- 實作藥品點擊資訊。
+- 測試桌面與行動裝置操作。
+
+### 第四階段：管理端及教材進貨
+
+- 實作管理端介面。
+- 實作草稿及圖片管理。
+- 實作主題建立。
+- 實作手動代碼驗證。
+- 實作教材發布包匯出。
+- 實作版本索引。
+- 實作代碼進貨。
+- 實作停用與重新啟用流程。
+- 建立發布前 CI 驗證。
+
+### 第五階段：HTML 成果分享
+
+- 建立共用唯讀 3D 檢視元件。
+- 實作成果快照。
+- 實作 HTML 產生與下載。
+- 驗證圖片與場景的完整性。
+- 驗證只包含已上架藥品。
+- 驗證成果與原遊戲狀態隔離。
+- 驗證另一瀏覽器及可用的行動裝置測試環境。
+
+### 第六階段：整合、測試及部署準備
+
+- 整合全部功能。
+- 執行 TypeScript 檢查。
+- 執行單元測試。
+- 執行整合測試。
+- 執行可用的瀏覽器端測試。
+- 檢查瀏覽器 Console。
+- 修正已發現的錯誤。
+- 執行正式 production build。
+- 驗證 GitHub Pages 子路徑。
+- 完成 README。
+- 完成互動式新手管理手冊。
+- 建立驗收測試報告。
+- 準備 GitHub Actions 部署流程。
+
+每一階段完成後，請保留實際程式成果，並更新開發進度文件。
+
+**在沒有必要的人工作業或重大阻礙時，不需要於每個階段結束後停下來等待我的確認，請繼續執行下一階段。**
+
+---
+
+## 十三、最低驗收測試要求
+
+請建立足夠的測試，至少涵蓋下列情境。
+
+### A. 初始狀態與重置
+
+- 初始為零藥品、兩座空 OTC 藥架。
+- 遊戲內切換頁面不遺失資料。
+- 重新整理頁面恢復初始狀態。
+- 取消重新開始不修改任何資料。
+- 確認重新開始後恢復初始狀態。
+- 重新開始後，先前未完成的進貨請求不得重新寫入舊資料。
+
+### B. 藥品資料管理
+
+- 三項必填欄位正確驗證。
+- 其他欄位留空仍可建立品項。
+- 全部 27 種劑型正確顯示。
+- 全部 27 種預設包裝映射正確。
+- 相同學名、劑量、劑型不得重複加入。
+- 不同劑量可以加入。
+- 不同劑型可以加入。
+- 學名大小寫及前後空白正確處理。
+- 劑量大小寫及空白正確處理。
+- 不進行劑量等價換算。
+- 編輯時正確排除自身 ID。
+- 搜尋支援學名及商品名。
+- 刪除品項時清除全部擺放引用。
+
+### C. 圖片及模型
+
+- 支援指定圖片格式。
+- 拒絕無效或超過容量的圖片。
+- 1024 px 最長邊限制正確。
+- 圖片不變形。
+- 裁切及預覽正確。
+- 無圖片時產生白色文字包裝。
+- 三種固定模型尺寸完全正確。
+- 圖片比例不會改變模型尺寸。
+- 無個別模型尺寸調整功能。
+- 重複進出場景不造成明顯資源洩漏。
+
+### D. 藥架及場景
+
+- 七個固定位置及朝向正確。
+- 初始 OTC-01、OTC-02 正確建立。
+- 不允許同一位置重複建立藥架。
+- 每座藥架四層十格。
+- 不得在單格放置超過一個包裝。
+- 允許同種藥品重複擺放。
+- 允許空架。
+- 最多七架、七十個包裝。
+- 全藥局至少保留一架。
+- 刪除藥架不刪除目錄品項。
+- 藥架名稱最多二十字元。
+- 允許藥架同名。
+- 鏡頭及觸控操作正常。
+- 滿七架時可正常點選及辨識。
+- 浮動資訊面板不妨礙核心操作。
+
+### E. 分類提醒
+
+- OTC 放入 OTC 不跳警告。
+- OTC 放入 RX 不跳警告。
+- RX 放入 OTC 顯示五秒警告。
+- RX 放入 RX 不跳警告。
+- 未分類藥品放入任一區顯示三秒提示。
+- 所有提醒均不阻擋合法放置或替換。
+
+### F. 教材及代碼
+
+- 六位代碼驗證正確。
+- 大小寫正規化正確。
+- 禁止 O、0、I、1。
+- 英數混合條件正確。
+- 既有及已停用代碼不得重複分配。
+- 教材版本不被意外覆蓋。
+- 停用代碼無法再次進貨。
+- 重新啟用後對應原教材版本。
+- 重複藥品自動跳過。
+- 新藥品正常匯入。
+- 網路或圖片載入失敗時提供合理錯誤提示。
+- 無效教材不得造成部分寫入。
+- 個人資料與管理端資料隔離。
+
+### G. HTML 成果分享
+
+- 可下載實際 HTML 檔案。
+- 場景、圖片、藥架及藥品配置完整。
+- 只包含已上架藥品。
+- 不包含備份或還原功能。
+- 不包含任何編輯操作。
+- 可旋轉、縮放及點選。
+- 不依賴原遊戲頁面的本機狀態。
+- 原始遊戲重新開始後仍可開啟。
+- 正確處理惡意或特殊字元文字。
+- 在可用的不同瀏覽器及裝置環境中測試。
+
+---
+
+## 十四、效能與品質要求
+
+此專案應可供一般學生使用，不應要求高階顯示卡或特殊裝置。
+
+請優先考量：
+
+- Windows 及 macOS 桌面瀏覽器。
+- iPad、Android 平板。
+- iPhone、Android 手機。
+- 滑鼠與觸控操作。
+- 不同螢幕尺寸。
+- WebGL 相容性。
+- GPU 記憶體消耗。
+- 圖片貼圖載入。
+- 滿七架及七十個包裝時的效能。
+
+可以利用共用 Geometry、適當的 Instancing、Texture 管理及動態渲染品質策略進行最佳化。
+
+不要為了過度追求效能而犧牲學生的基本操作功能或擅自削減遊戲容量。
+
+若無法實際測試某個實體裝置，必須明確記錄為未測試。
+
+瀏覽器模擬測試與實體裝置測試應分開報告。
+
+---
+
+## 十五、開發文件與交付成果
+
+請至少建立或提供下列實際成果：
+
+1. 完整專案原始碼。
+2. package.json。
+3. 套件鎖定檔。
+4. TypeScript 設定檔。
+5. Vite 設定檔。
+6. GitHub Actions 工作流程。
+7. 正式遊戲及管理端。
+8. 原創封面及其他必要資產。
+9. 共用 3D 模型元件。
+10. 教材資料 Schema。
+11. 教材發布與驗證工具。
+12. 可實際匯出的唯讀 HTML 成果。
+13. 完整測試程式。
+14. README.md。
+15. 第三方授權紀錄。
+16. 繁體中文 HTML 互動式新手管理手冊。
+17. 開發進度文件。
+18. 驗收測試報告。
+19. 尚待確認事項清單。
+20. 實際遊戲畫面或可驗證的渲染截圖。
+
+建議將技術文件整理於 docs 目錄，包含：
+
+- DEVELOPMENT_STATUS.md
+- ARCHITECTURE.md
+- DECISIONS.md
+- TEST_REPORT.md
+- ADMIN_GUIDE.html
+- REQUIREMENTS_V22.md
+
+文件名稱及目錄結構可依實際需要合理調整。
+
+測試用藥品及測試主題應與正式教材明確分離，不得自動出現在學生初始藥品目錄中。
+
+---
+
+## 十六、自主決策及需要詢問我的範圍
+
+### 可以直接決定的事項
+
+以下交由你合理實作，不必反覆詢問：
+
+- 程式目錄結構。
+- 元件拆分方式。
+- 狀態管理工具。
+- 測試框架。
+- CSS 與響應式布局。
+- 圖片壓縮品質。
+- 內部資料欄位命名。
+- 精確相機位置。
+- 精確光源參數。
+- 3D 材質。
+- 金屬支柱與層板細節。
+- 提示動效。
+- 效能最佳化策略。
+- 非核心介面的合理調整。
+- 不影響使用者功能的技術性重構。
+
+自行決定的事項請記錄於 DECISIONS.md，說明選擇理由及是否仍需驗收。
+
+### 必須詢問我的事項
+
+僅在以下情況需要停止相關作業並詢問：
+
+1. 必須修改 v22 已確認的核心功能。
+2. 必須修改正式場景座標或家具尺寸。
+3. 必須新增付費服務或產生費用。
+4. 涉及不明的授權或第三方資產。
+5. 需要我登入 GitHub 或授予存取權限。
+6. 需要確認正式 Repository 擁有者及公開範圍。
+7. 涉及不可逆的既有資料刪除。
+8. 現有工具或環境確實無法完成必要功能。
+
+若上述問題只阻礙部分工作，請繼續完成其他不受影響的項目，不要停止整個專案。
+
+---
+
+## 十七、回報方式與禁止事項
+
+請勿：
+
+- 只提供開發計畫而不撰寫程式。
+- 只提供程式片段而不建立專案。
+- 只建立靜態介面而將其稱為完整遊戲。
+- 使用不具實際功能的按鈕假裝功能已完成。
+- 使用模擬測試結果假裝已執行測試。
+- 虛構已完成的部署網址。
+- 虛構 GitHub commit 或 Pull Request。
+- 宣稱未經驗證的功能已正常運作。
+- 因尚未確認非核心技術參數而停止開發。
+- 擅自更改已定案的遊戲功能。
+- 將尚未製作的封面或模型描述為已完成。
+- 重新加入已取消的個人永久儲存、備份、還原及模型尺寸調整功能。
+
+每次執行完成後，請以繁體中文回報：
+
+### 1. 本次實際完成的功能
+
+說明哪些功能已實作並可以操作。
+
+### 2. 本次建立及修改的檔案
+
+列出實際檔案路徑及用途。
+
+### 3. 實際執行的指令
+
+列出建置、測試及檢查指令。
+
+### 4. 測試結果
+
+逐項區分：
+
+- 通過。
+- 失敗。
+- 尚未執行。
+- 因環境限制而無法執行。
+
+不得將尚未執行的測試列為通過。
+
+### 5. 實際畫面及預覽
+
+若工具環境支援，請提供：
+
+- 首頁截圖。
+- 藥品管理頁截圖。
+- 3D 藥局總覽截圖。
+- 滿七架場景截圖。
+- 獨立藥架截圖。
+- 管理端截圖。
+- HTML 成果分享截圖。
+
+### 6. 剩餘問題
+
+說明尚未完成的功能、環境限制、已知錯誤及需要我處理的事項。
+
+### 7. 如何開啟及測試
+
+提供適合新手使用的實際操作步驟及可用的網址或檔案。
+
+若本次工作環境無法直接提供公開網站，請提供可執行的本機專案及確切啟動方式，不得假裝已公開部署。
+
+若單次工作無法完成全部階段，請優先交付實際完成且可執行的部分，保留程式檔案與開發進度，並明確指出下一次應從哪個實際工作項目接續。
+
+---
+
+## 十八、開始正式執行
+
+我已接受你的第一階段開發前審查報告。
+
+請將本次補充指令與原始 v22 開發 Prompt 一同視為正式開發依據。若兩者存在衝突，以本次明確補充或修改的規格為優先，其餘原始規格繼續有效。
+
+目前請直接開始：
+
+**專案初始化 → 核心程式實作 → 單元測試 → 實際介面 → 3D 場景 → 管理端與教材發布 → HTML 成果分享 → 整合驗收。**
+
+請善用目前工作環境中可使用的程式開發、終端機、瀏覽器測試及檔案操作工具。
+
+先檢查現有工作環境，隨即建立實際專案及第一階段程式碼。
+
+不要再提供一份單純的開發前審查或規劃報告。
+
+**現在開始正式開發 My Pharmacy。**</textarea>
+<script>
+const search=document.querySelector('#search');
+const sections=[...document.querySelectorAll('section')];
+search.addEventListener('input',()=>{const query=search.value.trim().toLowerCase();for(const section of sections){section.hidden=!section.textContent.toLowerCase().includes(query);document.querySelector('a[href="#'+section.id+'"]').hidden=section.hidden;}});
+async function copy(text){try{await navigator.clipboard.writeText(text);document.querySelector('#status').textContent='已複製。';}catch{const dialog=document.querySelector('#copy-dialog');const field=document.querySelector('#manual');field.value=text;dialog.showModal();field.select();}}
+document.querySelector('#copy-all').onclick=()=>copy(document.querySelector('#full').value);
+document.querySelectorAll('[data-copy]').forEach(button=>button.onclick=()=>copy(button.dataset.copy));
+</script></body></html>

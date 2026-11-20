@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "教材版本",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "title",
+    "version",
+    "medicines"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "title": {
+      "type": "string",
+      "pattern": "\\S"
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^[a-z0-9-]{1,80}$"
+    },
+    "medicines": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "genericName",
+          "strength",
+          "dosageFormId"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "genericName": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "strength": {
+            "type": "string",
+            "pattern": "\\S"
+          },
+          "dosageFormId": {
+            "enum": [
+              "tablet",
+              "powder",
+              "granules",
+              "chewable-tablet",
+              "orally-disintegrating-tablet",
+              "extended-release-tablet",
+              "enteric-coated-tablet",
+              "oral-solution",
+              "oral-suspension",
+              "syrup",
+              "oral-drops",
+              "cream",
+              "ointment",
+              "gel",
+              "lotion",
+              "transdermal-patch",
+              "topical-solution",
+              "eye-drops",
+              "eye-ointment",
+              "ear-drops",
+              "nasal-spray",
+              "inhalation-aerosol",
+              "inhalation-powder",
+              "injection",
+              "suppository",
+              "vaginal-tablet",
+              "capsule"
+            ]
+          },
+          "brand": {
+            "type": "string"
+          },
+          "category": {
+            "type": "string"
+          },
+          "indication": {
+            "type": "string"
+          },
+          "classification": {
+            "enum": [
+              null,
+              "OTC",
+              "RX"
+            ]
+          },
+          "template": {
+            "enum": [
+              "box",
+              "bottle",
+              "pouch"
+            ]
+          },
+          "image": {
+            "type": "string",
+            "pattern": "^images/[a-z0-9-]{1,120}\\.(png|jpg|webp)$"
+          },
+          "crop": {
+            "type": "object",
+            "required": [
+              "mode",
+              "x",
+              "y",
+              "zoom"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "mode": {
+                "enum": [
+                  "contain",
+                  "fill"
+                ]
+              },
+              "x": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "y": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "zoom": {
+                "type": "number",
+                "minimum": 1,
+                "maximum": 3
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "name": "my-pharmacy",
+  "version": "1.0.0",
+  "description": "Interactive 3D pharmacy education game.",
+  "scripts": {
+    "dev": "node scripts/build-viewer.mjs public && vite",
+    "typecheck": "tsc",
+    "test": "vitest run",
+    "build": "npm run typecheck && vite build && node scripts/build-viewer.mjs",
+    "preview": "vite preview",
+    "e2e": "playwright test",
+    "check:teaching": "tsx scripts/check-teaching.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joychieh18/my-pharmacy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/joychieh18/my-pharmacy/issues"
+  },
+  "homepage": "https://github.com/joychieh18/my-pharmacy#readme",
+  "dependencies": {
+    "@react-three/drei": "^10.7.9",
+    "@react-three/fiber": "^9.8.2",
+    "fflate": "^0.8.3",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "three": "^0.187.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/three": "^0.187.0",
+    "sharp": "^0.35.5",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=24"
+  }
+}
