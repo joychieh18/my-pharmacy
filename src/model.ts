@@ -1,11 +1,24 @@
 import type { Crop } from './images';
 export const packages = {
-  box: { label: '藥盒', width: 0.09, height: 0.15, depth: 0.05 },
-  bottle: { label: '藥瓶', width: 0.08, height: 0.12, depth: 0.08 },
-  pouch: { label: '藥袋', width: 0.1, height: 0.14, depth: 0.02 },
+  box: { label: '藥盒', width: 0.135, height: 0.225, depth: 0.075 },
+  bottle: { label: '藥瓶', width: 0.12, height: 0.18, depth: 0.12 },
+  pouch: { label: '藥袋', width: 0.15, height: 0.21, depth: 0.03 },
 } as const;
 
 export type Package = keyof typeof packages;
+
+export const palettes = {
+  blue: ['藍色', '#245a9a'],
+  teal: ['青色', '#087c88'],
+  green: ['綠色', '#2d7952'],
+  violet: ['紫色', '#6b4c95'],
+  orange: ['橘色', '#ab531d'],
+  coral: ['珊瑚紅', '#ad4a55'],
+  mustard: ['芥末黃', '#8a6512'],
+  navy: ['深藍色', '#34456e'],
+  slate: ['灰藍色', '#4d6d82'],
+} as const;
+export type Palette = keyof typeof palettes;
 
 export const forms = [
   ['tablet', '錠劑', 'Tablet', 'box'],
@@ -54,6 +67,7 @@ export interface MedicineInput {
   template?: Package;
   image?: string;
   crop?: Crop;
+  palette?: Palette;
 }
 export interface Medicine extends MedicineInput {
   id: string;
@@ -73,6 +87,15 @@ export const identity = (medicine: MedicineInput) =>
     medicine.strength.replace(/\s/gu, '').toLowerCase(),
     medicine.dosageFormId,
   ]);
+
+const paletteIds = Object.keys(palettes) as Palette[];
+export function paletteFor(medicine: MedicineInput): Palette {
+  if (medicine.palette) return medicine.palette;
+  let hash = 2166136261;
+  for (const char of identity(medicine))
+    hash = Math.imul(hash ^ char.codePointAt(0)!, 16777619);
+  return paletteIds[(hash >>> 0) % paletteIds.length];
+}
 
 export function validateMedicine(
   value: unknown,
@@ -113,6 +136,11 @@ export function validateMedicine(
     throw new Error('裁切設定無效。');
   if (med.template !== undefined && !Object.hasOwn(packages, med.template))
     throw new Error('包裝模板無效。');
+  if (
+    med.palette !== undefined &&
+    (typeof med.palette !== 'string' || !Object.hasOwn(palettes, med.palette))
+  )
+    throw new Error('包裝配色無效。');
 }
 
 export function upsert(
@@ -166,11 +194,21 @@ export const positions = [
 export type Position = (typeof positions)[number];
 export type RackId = Position['id'];
 
+export const shelf = {
+  width: 1.2,
+  height: 1.8,
+  depth: 0.4,
+  post: 0.03,
+  board: 0.02,
+  back: 0.01,
+  levels: [1.46, 1.03, 0.6, 0.17],
+} as const;
 export const slots = [2, 3, 3, 2].flatMap((cols, row) =>
   Array.from({ length: cols }, (_, col) => ({
-    x: -0.6 + ((col + 0.5) * 1.2) / cols,
-    y: 1.46 - row * 0.43,
-    width: 1.2 / cols,
+    x: -shelf.width / 2 + ((col + 0.5) * shelf.width) / cols,
+    y: shelf.levels[row],
+    width: shelf.width / cols,
+    row,
   })),
 );
 
@@ -277,6 +315,7 @@ export function snapshot(game: Game): Game {
         template: templateFor(m),
         image: m.image,
         crop: m.crop,
+        palette: m.palette,
       })),
   };
 }

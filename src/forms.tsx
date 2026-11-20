@@ -1,13 +1,16 @@
 import { useRef, useState } from 'react';
-import { defaultCrop, imageFromBlob } from './images';
+import { defaultCrop, legacyCrop, imageFromBlob } from './images';
 import {
   forms,
   packages,
+  palettes,
+  paletteFor,
   searchCatalog,
   templateFor,
   type Medicine,
   type MedicineInput,
 } from './model';
+import { CropEditor } from './crop-editor';
 import { PackagePreview } from './scene';
 
 export const errorText = (error: unknown) =>
@@ -35,7 +38,7 @@ export function MedicineForm({
   const request = useRef(0);
   const set = <K extends keyof MedicineInput>(key: K, next: MedicineInput[K]) =>
     update((v) => ({ ...v, [key]: next }));
-  const crop = value.crop ?? defaultCrop;
+  const crop = value.crop ?? legacyCrop;
   return (
     <form
       className="medicine-form"
@@ -134,6 +137,38 @@ export function MedicineForm({
             ))}
           </select>
         </label>
+        <fieldset className="palette">
+          <legend>包裝配色</legend>
+          <div className="palette-options">
+            <button
+              type="button"
+              aria-pressed={!value.palette}
+              onClick={() => set('palette', undefined)}
+            >
+              <i
+                style={{
+                  background:
+                    palettes[paletteFor({ ...value, palette: undefined })][1],
+                }}
+              />
+              自動配色
+            </button>
+            {(Object.keys(palettes) as (keyof typeof palettes)[]).map((key) => (
+              <button
+                key={key}
+                type="button"
+                aria-pressed={value.palette === key}
+                onClick={() => set('palette', key)}
+              >
+                <i style={{ background: palettes[key][1] }} />
+                {palettes[key][0]}
+              </button>
+            ))}
+          </div>
+          {value.image && (
+            <small>有上傳圖片時，移除圖片後才會顯示此配色。</small>
+          )}
+        </fieldset>
         <label>
           正面包裝圖片
           <input
@@ -198,6 +233,12 @@ export function MedicineForm({
               ))}
             <button
               type="button"
+              onClick={() => set('crop', { ...defaultCrop, mode: crop.mode })}
+            >
+              重置裁切
+            </button>
+            <button
+              type="button"
               onClick={() => {
                 request.current++;
                 setLoading(false);
@@ -210,9 +251,19 @@ export function MedicineForm({
         )}
       </div>
       <div>
+        {value.image && (
+          <CropEditor
+            src={value.image}
+            crop={crop}
+            template={templateFor(value)}
+            onChange={(next) => set('crop', next)}
+          />
+        )}
         <h3>3D 包裝預覽</h3>
         <PackagePreview medicine={value} />
-        <small>圖片上限 2 MB。模型尺寸依包裝模板固定。</small>
+        <small>
+          圖片上限 5 MB，處理後最長邊 2048 px。模型尺寸依包裝模板固定。
+        </small>
       </div>
       {error && (
         <p className="error" role="alert">

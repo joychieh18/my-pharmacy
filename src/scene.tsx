@@ -4,23 +4,26 @@ import {
   memo,
   useEffect,
   useLayoutEffect,
+  useMemo,
   useRef,
-  useState,
   type RefObject,
 } from 'react';
 import {
-  CanvasTexture,
   Matrix4,
-  SRGBColorSpace,
+  Vector3,
+  type DirectionalLight,
   type InstancedMesh,
 } from 'three';
-import { defaultCrop, decodeImage, paintImage } from './images';
+import { displayFor } from './display';
+import { Packaging } from './packaging';
+import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import {
   type Game,
   type MedicineInput,
+  type Medicine,
   type Rack,
   type RackId,
-  packages,
+  shelf,
   positions,
   slots,
   templateFor,
@@ -37,115 +40,22 @@ function Block({ size, at, color }: { size: XYZ; at: XYZ; color: string }) {
   );
 }
 
-export function Packaging({ medicine }: { medicine: MedicineInput }) {
-  const invalidate = useThree((state) => state.invalidate);
-  const template = templateFor(medicine);
-  const { width, height, depth } = packages[template];
-  const labelW = template === 'bottle' ? 0.053 : width * 0.94;
-  const labelH = height * 0.76;
-  const [texture, setTexture] = useState<CanvasTexture>();
-  useEffect(() => {
-    const canvas = document.createElement('canvas');
-    canvas.height = 512;
-    canvas.width = Math.round((512 * labelW) / labelH);
-    const ctx = canvas.getContext('2d')!;
-    ctx.fillStyle = '#fff';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#133d31';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    const text = `${medicine.genericName}\n${medicine.strength}`;
-    for (let size = 62; size >= 8; size -= 2) {
-      ctx.font = `600 ${size}px sans-serif`;
-      const lines = text.split('\n').flatMap((part) => {
-        const result: string[] = [];
-        let line = '';
-        for (const char of part) {
-          if (
-            line &&
-            ctx.measureText(line + char).width > canvas.width * 0.91
-          ) {
-            result.push(line.trim());
-            line = '';
-          }
-          line += char;
-        }
-        return [...result, line];
-      });
-      if (lines.length * size * 1.15 > 480 && size > 8) continue;
-      lines.forEach((line, i) =>
-        ctx.fillText(
-          line,
-          canvas.width / 2,
-          256 + (i - (lines.length - 1) / 2) * size * 1.15,
-        ),
-      );
-      break;
-    }
-    const next = new CanvasTexture(canvas);
-    next.colorSpace = SRGBColorSpace;
-    setTexture(next);
-    let active = true;
-    if (medicine.image)
-      void decodeImage(medicine.image)
-        .then((img) => {
-          if (!active) return;
-          ctx.fillStyle = '#fff';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          paintImage(ctx, img, medicine.crop ?? defaultCrop);
-          next.needsUpdate = true;
-          invalidate();
-        })
-        .catch(() => {});
-    return () => {
-      active = false;
-      next.dispose();
-    };
-  }, [
-    medicine.genericName,
-    medicine.strength,
-    medicine.image,
-    medicine.crop,
-    labelW,
-    labelH,
-    invalidate,
-  ]);
-  return (
-    <group position-y={height / 2}>
-      <mesh castShadow>
-        {template === 'bottle' ? (
-          <cylinderGeometry args={[width / 2, width / 2, height, 28]} />
-        ) : (
-          <boxGeometry args={[width, height, depth]} />
-        )}
-        <meshStandardMaterial color="#ffffff" roughness={0.55} />
-      </mesh>
-      {texture && (
-        <mesh position-z={depth / 2 + 0.0005}>
-          <planeGeometry args={[labelW, labelH]} />
-          <meshBasicMaterial map={texture} />
-        </mesh>
-      )}
-    </group>
-  );
-}
-
 export function PackagePreview({ medicine }: { medicine: MedicineInput }) {
   return (
     <div className="package-preview">
       <Canvas
         frameloop="demand"
-        camera={{ position: [0.22, 0.19, 0.4], fov: 33 }}
+        camera={{ position: [0.12, 0.19, 0.55], fov: 33 }}
         fallback={<span>此瀏覽器無法顯示 WebGL 預覽。</span>}
       >
         <ambientLight intensity={1.8} />
         <directionalLight position={[2, 4, 2]} intensity={2} />
         <Packaging medicine={medicine} />
         <OrbitControls
-          target={[0, 0.075, 0]}
+          target={[0, 0.108, 0]}
           enablePan={false}
-          minDistance={0.3}
-          maxDistance={0.7}
+          minDistance={0.24}
+          maxDistance={0.95}
         />
       </Canvas>
     </div>
@@ -169,72 +79,94 @@ function Shelf({
   highlight?: boolean;
   onSlot?: (slot: number) => void;
 }) {
+  const zone = rack.id.startsWith('RX') ? 'RX' : 'OTC';
   return (
     <>
-      {[-0.585, 0.585].map((x) =>
-        [-0.185, 0.185].map((z) => (
-          <Block
-            key={`${x}-${z}`}
-            size={[0.03, 1.8, 0.03]}
-            at={[x, 0.9, z]}
-            color="#e3eae8"
-          />
-        )),
-      )}
-      {[0.17, 0.6, 1.03, 1.46].map((y) => (
+      {[-1, 1]
+        .map((sign) => (sign * (shelf.width - shelf.post)) / 2)
+        .map((x) =>
+          [-1, 1]
+            .map((sign) => (sign * (shelf.depth - shelf.post)) / 2)
+            .map((z) => (
+              <Block
+                key={`${x}-${z}`}
+                size={[shelf.post, shelf.height, shelf.post]}
+                at={[x, shelf.height / 2, z]}
+                color="#e3eae8"
+              />
+            )),
+        )}
+      {shelf.levels.map((y) => (
         <Block
           key={y}
-          size={[1.2, 0.02, 0.4]}
-          at={[0, y - 0.01, 0]}
+          size={[shelf.width, shelf.board, shelf.depth]}
+          at={[0, y - shelf.board / 2, 0]}
           color="#f2f5f1"
         />
       ))}
-      {rack.id.startsWith('RX') && (
-        <Block size={[1.2, 1.8, 0.01]} at={[0, 0.9, -0.195]} color="#fbfcfb" />
+      {zone === 'RX' && (
+        <Block
+          size={[shelf.width, shelf.height, shelf.back]}
+          at={[0, shelf.height / 2, (shelf.back - shelf.depth) / 2]}
+          color="#fbfcfb"
+        />
       )}
-      {slots.map(({ x, y, width }, i) => {
-        const med = game.catalog.find((m) => m.id === rack.items[i]);
-        const w = width - 0.055;
-        const h = 0.31;
-        const lineColor = highlight ? '#16ac75' : '#a9c3b9';
-        return (
-          <group key={i} position={[x, y, 0]}>
-            {med && <Packaging medicine={med} />}
-            {!med && close && (
-              <>
-                {[-w / 2, w / 2].map((edge) => (
-                  <Block
-                    key={edge}
-                    size={[0.005, h, 0.004]}
-                    at={[edge, h / 2, 0.201]}
-                    color={lineColor}
+      {close &&
+        slots.map((slot, i) => {
+          const { x, y, width } = slot;
+          const med = game.catalog.find((m) => m.id === rack.items[i]);
+          const w = width - 0.055;
+          const h = 0.31;
+          const lineColor = highlight ? '#16ac75' : '#a9c3b9';
+          return (
+            <group key={i} position={[x, y, 0]}>
+              {med && (
+                <Packaging
+                  medicine={med}
+                  detail
+                  offsets={displayFor(slot, zone, templateFor(med)).offsets}
+                  onSelect={() => onSlot?.(i)}
+                />
+              )}
+              {!med && (
+                <>
+                  {[-w / 2, w / 2].map((edge) => (
+                    <Block
+                      key={edge}
+                      size={[0.005, h, 0.004]}
+                      at={[edge, h / 2, 0.201]}
+                      color={lineColor}
+                    />
+                  ))}
+                  {[0.003, h].map((edge) => (
+                    <Block
+                      key={edge}
+                      size={[w, 0.005, 0.004]}
+                      at={[0, edge, 0.201]}
+                      color={lineColor}
+                    />
+                  ))}
+                </>
+              )}
+              {(med || highlight) && (
+                <mesh
+                  position={[0, h / 2, 0.205]}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onSlot?.(i);
+                  }}
+                >
+                  <planeGeometry args={[w, h]} />
+                  <meshBasicMaterial
+                    transparent
+                    opacity={0}
+                    depthWrite={false}
                   />
-                ))}
-                {[0.003, h].map((edge) => (
-                  <Block
-                    key={edge}
-                    size={[w, 0.005, 0.004]}
-                    at={[0, edge, 0.201]}
-                    color={lineColor}
-                  />
-                ))}
-              </>
-            )}
-            {close && (med || highlight) && (
-              <mesh
-                position={[0, h / 2, 0.205]}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onSlot?.(i);
-                }}
-              >
-                <planeGeometry args={[w, h]} />
-                <meshBasicMaterial transparent opacity={0} depthWrite={false} />
-              </mesh>
-            )}
-          </group>
-        );
-      })}
+                </mesh>
+              )}
+            </group>
+          );
+        })}
       <Html
         portal={overlay}
         position={[0, 1.86, 0]}
@@ -336,6 +268,18 @@ const Room = memo(function Room({ overlay }: { overlay: Overlay }) {
 
 function SceneCamera({ close }: { close: boolean }) {
   const { size, camera, invalidate } = useThree();
+  const controls = useRef<OrbitControlsImpl>(null);
+  function constrainPan() {
+    const target = controls.current?.target;
+    if (!target) return;
+    const clamped = new Vector3(
+      Math.max(-0.51, Math.min(0.51, target.x)),
+      Math.max(0.23, Math.min(1.59, target.y)),
+      0,
+    );
+    camera.position.add(clamped.clone().sub(target));
+    target.copy(clamped);
+  }
   const aspect = size.width / size.height;
   const zoom = Math.min(1, aspect / (close ? 0.81 : 1.34));
   useEffect(() => {
@@ -346,13 +290,109 @@ function SceneCamera({ close }: { close: boolean }) {
   return (
     <OrbitControls
       target={close ? [0, 0.92, 0] : [4.5, 0.45, 3.5]}
-      minDistance={close ? 2.3 : 6}
+      minDistance={close ? 0.48 : 6}
       maxDistance={close ? 5 : 23}
-      enablePan={false}
+      enablePan={close}
+      zoomSpeed={close ? 2 : 1}
+      onChange={close ? constrainPan : undefined}
+      ref={controls}
       minPolarAngle={close ? 1.05 : 0.23}
       maxPolarAngle={close ? 1.7 : 1.38}
       minAzimuthAngle={close ? -0.8 : -Infinity}
       maxAzimuthAngle={close ? 0.8 : Infinity}
+    />
+  );
+}
+
+function RoomPackages({
+  game,
+  onRack,
+}: {
+  game: Game;
+  onRack: (id: RackId) => void;
+}) {
+  const displays = useMemo(() => {
+    const groups = new Map<
+      string,
+      {
+        medicine: Medicine;
+        offsets: XYZ[];
+        angles: number[];
+        rackIds: RackId[];
+      }
+    >();
+    const catalog = new Map(
+      game.catalog.map((medicine) => [medicine.id, medicine]),
+    );
+    for (const rack of game.racks) {
+      const position = positions.find((entry) => entry.id === rack.id)!;
+      const yaw = (position.degrees * Math.PI) / 180;
+      const cosine = Math.cos(yaw);
+      const sine = Math.sin(yaw);
+      for (const [i, slot] of slots.entries()) {
+        const medicine = catalog.get(rack.items[i]);
+        if (!medicine) continue;
+        let display = groups.get(medicine.id);
+        if (!display) {
+          display = { medicine, offsets: [], angles: [], rackIds: [] };
+          groups.set(medicine.id, display);
+        }
+        for (const [dx, y, z] of displayFor(
+          slot,
+          position.zone,
+          templateFor(medicine),
+        ).offsets) {
+          const x = slot.x + dx;
+          display.offsets.push([
+            position.x + cosine * x + sine * z,
+            slot.y + y,
+            position.z - sine * x + cosine * z,
+          ]);
+          display.angles.push(yaw);
+          display.rackIds.push(rack.id);
+        }
+      }
+    }
+    return [...groups.values()];
+  }, [game]);
+  return displays.map(({ medicine, offsets, angles, rackIds }) => (
+    <Packaging
+      key={medicine.id}
+      medicine={medicine}
+      offsets={offsets}
+      angles={angles}
+      detail={false}
+      onSelect={(index) => onRack(rackIds[index])}
+    />
+  ));
+}
+
+function SceneLight({
+  close,
+  rackLayout,
+}: {
+  close: boolean;
+  rackLayout: string;
+}) {
+  const light = useRef<DirectionalLight>(null);
+  const invalidate = useThree((state) => state.invalidate);
+  useLayoutEffect(() => {
+    light.current!.shadow.needsUpdate = true;
+    invalidate();
+  }, [rackLayout, invalidate]);
+  return (
+    <directionalLight
+      ref={light}
+      position={close ? [1, 4, 3] : [3, 9, 1]}
+      intensity={2.1}
+      castShadow
+      shadow-autoUpdate={false}
+      shadow-mapSize={[1024, 1024]}
+      shadow-camera-left={-9}
+      shadow-camera-right={9}
+      shadow-camera-top={9}
+      shadow-camera-bottom={-9}
+      shadow-normalBias={0.02}
     />
   );
 }
@@ -386,22 +426,19 @@ export function Scene({
         frameloop="demand"
         key={`${rack?.id ?? 'room'}-${reset}`}
         shadows
-        dpr={[1, 1.5]}
-        camera={{ position: rack ? [0, 1.35, 3.1] : [8.9, 8.2, -6.4], fov: 43 }}
+        dpr={rack ? [1, 2] : [1, 1.5]}
+        camera={{
+          position: rack ? [0, 1.35, 3.1] : [8.9, 8.2, -6.4],
+          fov: 43,
+          near: 0.025,
+        }}
         fallback={<p>此瀏覽器無法啟用 WebGL。仍可使用下方清單操作。</p>}
       >
         <color attach="background" args={[rack ? '#eff3f1' : '#e4f0e9']} />
         <ambientLight intensity={1.65} />
-        <directionalLight
-          position={rack ? [1, 4, 3] : [3, 9, 1]}
-          intensity={2.1}
-          castShadow
-          shadow-mapSize={[1024, 1024]}
-          shadow-camera-left={-9}
-          shadow-camera-right={9}
-          shadow-camera-top={9}
-          shadow-camera-bottom={-9}
-          shadow-normalBias={0.02}
+        <SceneLight
+          close={Boolean(rack)}
+          rackLayout={rack?.id ?? game.racks.map((item) => item.id).join(',')}
         />
         <SceneCamera close={Boolean(rack)} />
         {rack ? (
@@ -419,6 +456,7 @@ export function Scene({
         ) : (
           <>
             <Room overlay={overlay} />
+            <RoomPackages game={game} onRack={onRack} />
             {positions.map((position) => {
               const item = game.racks.find((r) => r.id === position.id);
               return (

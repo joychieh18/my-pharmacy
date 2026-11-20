@@ -3,7 +3,12 @@ import { createRoot } from 'react-dom/client';
 import { strToU8, zipSync } from 'fflate';
 import { download } from './download';
 import { MedicineForm, MedicineList, errorText } from './forms';
-import { decodeImage, validDataImage } from './images';
+import {
+  maxImageBytes,
+  maxImageSide,
+  decodeImage,
+  validDataImage,
+} from './images';
 import { upsert, type Medicine } from './model';
 import {
   checkHistory,
@@ -104,8 +109,8 @@ async function exportTheme(theme: Theme, catalog: Medicine[]) {
       const content = await (await fetch(image)).blob();
       const img = await decodeImage(image);
       if (
-        content.size > 2_000_000 ||
-        Math.max(img.naturalWidth, img.naturalHeight) > 1024
+        content.size > maxImageBytes ||
+        Math.max(img.naturalWidth, img.naturalHeight) > maxImageSide
       )
         throw new Error('圖片超過教材限制。');
       const extension =

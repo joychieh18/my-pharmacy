@@ -93,6 +93,11 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
       </div>
       <div className={rack ? 'shelf-layout' : undefined}>
         <div>
+          {rack && (
+            <p className="camera-help">
+              拖曳旋轉，滾輪或雙指縮放。按右鍵拖曳或兩指同向滑動可平移。
+            </p>
+          )}
           <Scene
             game={game}
             rack={rack}
@@ -264,7 +269,7 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
                   onClick={() => {
                     if (
                       confirm(
-                        `刪除 ${selectedRack.id}？將移除 ${Object.keys(selectedRack.items).length} 個包裝，藥品目錄會保留。`,
+                        `刪除 ${selectedRack.id}？將移除 ${Object.keys(selectedRack.items).length} 個已上架格位，藥品目錄會保留。`,
                       )
                     ) {
                       editing.setGame(removeRack(game, selectedRack.id));

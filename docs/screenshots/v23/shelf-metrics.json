@@ -1,0 +1,62 @@
+[
+  {
+    "scenario": "boxes",
+    "models": 672,
+    "firstDrawMs": 788,
+    "avgTwoRafMs": 317,
+    "peakCallsPerRafWindow": 78,
+    "liveTextures": 8,
+    "liveBuffers": 318,
+    "contextLoss": 0
+  },
+  {
+    "scenario": "pouches",
+    "models": 1512,
+    "firstDrawMs": 1209,
+    "avgTwoRafMs": 432,
+    "peakCallsPerRafWindow": 78,
+    "liveTextures": 8,
+    "liveBuffers": 318,
+    "contextLoss": 0
+  },
+  {
+    "scenario": "mixed",
+    "models": 873,
+    "firstDrawMs": 1055,
+    "avgTwoRafMs": 335,
+    "peakCallsPerRafWindow": 82,
+    "liveTextures": 10,
+    "liveBuffers": 338,
+    "contextLoss": 0
+  },
+  {
+    "scenario": "same-across-racks",
+    "models": 570,
+    "firstDrawMs": 3602,
+    "avgTwoRafMs": 644,
+    "peakCallsPerRafWindow": 78,
+    "liveTextures": 8,
+    "liveBuffers": 318,
+    "contextLoss": 0
+  },
+  {
+    "scenario": "different-images",
+    "models": 873,
+    "firstDrawMs": 1324,
+    "avgTwoRafMs": 476,
+    "peakCallsPerRafWindow": 96,
+    "liveTextures": 17,
+    "liveBuffers": 352,
+    "contextLoss": 0
+  },
+  {
+    "scenario": "high-resolution",
+    "models": 873,
+    "firstDrawMs": 5877,
+    "avgTwoRafMs": 351,
+    "peakCallsPerRafWindow": 96,
+    "liveTextures": 17,
+    "liveBuffers": 352,
+    "contextLoss": 0
+  }
+]

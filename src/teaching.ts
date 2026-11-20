@@ -1,5 +1,11 @@
 import { previewSupply, validateMedicine, type MedicineInput } from './model';
-import { decodeImage, imageTypes } from './images';
+import {
+  maxImageBytes,
+  maxImageSide,
+  decodeImage,
+  matchesImageType,
+  blobDataUrl,
+} from './images';
 
 export interface CodeEntry {
   active: boolean;
@@ -96,6 +102,7 @@ export function validatePack(value: unknown, path: string): TeachingPack {
     'template',
     'image',
     'crop',
+    'palette',
   ]);
   pack.medicines.forEach((med, i) => {
     try {
@@ -139,17 +146,12 @@ export async function loadPack(raw: string, signal: AbortSignal) {
     if (existing) return existing;
     const request = (async () => {
       const blob = await (await fetchResource(path, signal)).blob();
-      if (!imageTypes.includes(blob.type) || blob.size > 2_000_000)
+      if (blob.size > maxImageBytes || !(await matchesImageType(blob)))
         throw new Error('教材圖片格式或容量錯誤。');
-      const data = await new Promise<string>((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = () => resolve(String(reader.result));
-        reader.onerror = () => reject(new Error('教材圖片讀取失敗。'));
-        reader.readAsDataURL(blob);
-      });
+      const data = await blobDataUrl(blob);
       const img = await decodeImage(data);
-      if (Math.max(img.naturalWidth, img.naturalHeight) > 1024)
-        throw new Error('教材圖片尺寸超出 1024 px。');
+      if (Math.max(img.naturalWidth, img.naturalHeight) > maxImageSide)
+        throw new Error('教材圖片尺寸超出 2048 px。');
       return data;
     })();
     requests.set(path, request);
