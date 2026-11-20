@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "title": "antiplatelet",
+  "version": "6985fa2a-304a-4c75-a1d8-70e986a4ef85",
+  "medicines": [
+    {
+      "genericName": "aspirin",
+      "dosageFormId": "capsule",
+      "strength": "100mg",
+      "classification": "RX",
+      "category": "antiplatlet"
+    },
+    {
+      "genericName": "ticagrelor",
+      "dosageFormId": "tablet",
+      "strength": "90mg",
+      "classification": "RX"
+    }
+  ]
+}

@@ -1,1 +1,9 @@
-{"schemaVersion":1,"codes":{}}
+{
+  "schemaVersion": 1,
+  "codes": {
+    "AP4444": {
+      "active": true,
+      "manifest": "versions/6985fa2a-304a-4c75-a1d8-70e986a4ef85.json"
+    }
+  }
+}
