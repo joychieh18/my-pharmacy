@@ -97,7 +97,8 @@
           },
           "image": {
             "type": "string",
-            "pattern": "^images/[a-z0-9-]{1,120}\\.(png|jpg|webp)$"
+            "pattern": "^images/[a-z0-9-]{1,120}\\.(png|jpg|webp)$",
+            "description": "PNG、JPEG 或 WebP。實體檔案上限 5,000,000 bytes，最長邊 2048 px。"
           },
           "crop": {
             "type": "object",
@@ -131,6 +132,20 @@
                 "maximum": 3
               }
             }
+          },
+          "palette": {
+            "description": "選填的 v23 通用包裝色票。缺少時自動配色。",
+            "enum": [
+              "blue",
+              "teal",
+              "green",
+              "violet",
+              "orange",
+              "coral",
+              "mustard",
+              "navy",
+              "slate"
+            ]
           }
         }
       }

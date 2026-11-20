@@ -1,5 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import { randomFillSync } from 'node:crypto';
 import { unzipSync, strFromU8 } from 'fflate';
 import { pathToFileURL } from 'node:url';
 
@@ -120,18 +121,16 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
   await page.goto('./admin/');
   await page.getByRole('button', { name: '新增教材藥品' }).click();
   await fillMedicine(page, 'Training Sample', '10 mg');
-  await page
-    .getByLabel('正面包裝圖片')
-    .setInputFiles({
-      name: 'label.png',
-      mimeType: 'image/png',
-      buffer: Buffer.from(
-        'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+bN1sAAAAASUVORK5CYII=',
-        'base64',
-      ),
-    });
+  await page.getByLabel('正面包裝圖片').setInputFiles({
+    name: 'label.png',
+    mimeType: 'image/png',
+    buffer: Buffer.from(
+      'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+bN1sAAAAASUVORK5CYII=',
+      'base64',
+    ),
+  });
   await expect(page.getByLabel('圖片顯示')).toBeVisible();
-  await page.getByLabel('圖片顯示').selectOption('fill');
+  await page.getByLabel('圖片顯示').selectOption('contain');
   await page.getByRole('button', { name: '新增藥品', exact: true }).click();
   await page.getByLabel('主題名稱').fill('課堂練習');
   await page.getByLabel('主題代碼').fill('ab2c34');
@@ -141,7 +140,20 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
   await page.reload();
   await page.getByRole('button', { name: '課堂練習' }).click();
   await expect(page.getByLabel('主題代碼')).toHaveValue('AB2C34');
-  await page.screenshot({ path: info.outputPath('07-admin.png') });
+  await page.getByRole('button', { name: '編輯', exact: true }).click();
+  await expect(page.getByLabel('圖片顯示')).toHaveValue('contain');
+  await expect(
+    page.getByRole('button', { name: '自動配色', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await page.getByRole('button', { name: '灰藍色', exact: true }).click();
+  await page.screenshot({
+    path: info.outputPath('07-admin.png'),
+    fullPage: true,
+  });
+  await page.getByRole('button', { name: '儲存修改', exact: true }).click();
+  await expect(
+    page.getByText('Training Sample', { exact: true }).first(),
+  ).toBeVisible();
   const downloading = page.waitForEvent('download');
   await page.getByRole('button', { name: '驗證並匯出發布包' }).click();
   const zip = unzipSync(
@@ -149,6 +161,10 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
   );
   const index = JSON.parse(strFromU8(zip['public/teaching/index.json']));
   expect(index.codes.AB2C34.active).toBe(true);
+  const published = JSON.parse(
+    strFromU8(zip[`public/teaching/${index.codes.AB2C34.manifest}`]),
+  );
+  expect(published.medicines[0].palette).toBe('slate');
   let active = true;
   await page.route('**/teaching/**', (route) => {
     const path =
@@ -224,16 +240,22 @@ test('離線手冊章節、搜尋、核取與複製備援', async ({ browser }) 
   }
 });
 
-test('圖片尺寸、格式、裁切及無效內容', async ({ page }) => {
+test('圖片尺寸、格式、裁切及無效內容', async ({ page }, info) => {
   const { default: sharp } = await import('sharp');
   await page.goto('./');
   await page.getByRole('button', { name: '我要管理藥品' }).click();
   await page.getByRole('button', { name: /我要進貨/ }).click();
   await fillMedicine(page, 'Image Sample');
   const field = page.getByLabel('正面包裝圖片');
-  for (const format of ['png', 'jpeg', 'webp'] as const) {
+  for (const [format, width, height] of [
+    ['png', 2600, 1300],
+    ['jpeg', 620, 1900],
+    ['webp', 400, 400],
+    ['png', 2048, 24],
+    ['jpeg', 60, 40],
+  ] as const) {
     const buffer = await sharp({
-      create: { width: 1300, height: 650, channels: 3, background: '#308960' },
+      create: { width, height, channels: 3, background: '#308960' },
     })
       .toFormat(format)
       .toBuffer();
@@ -245,21 +267,38 @@ test('圖片尺寸、格式、裁切及無效內容', async ({ page }) => {
     await expect(page.getByLabel('圖片顯示')).toBeVisible();
     await page.getByRole('button', { name: '移除圖片' }).click();
   }
+  const side = 1288;
+  const nearLimit = await sharp(randomFillSync(Buffer.alloc(side * side * 3)), {
+    raw: { width: side, height: side, channels: 3 },
+  })
+    .png()
+    .toBuffer();
+  expect(nearLimit.length).toBeGreaterThan(4_900_000);
+  expect(nearLimit.length).toBeLessThanOrEqual(5_000_000);
+  await field.setInputFiles({
+    name: 'near-limit.png',
+    mimeType: 'image/png',
+    buffer: nearLimit,
+  });
+  await expect(page.getByLabel('圖片顯示')).toBeVisible();
+  await page.getByRole('button', { name: '移除圖片' }).click();
   await field.setInputFiles({
     name: 'oversized.png',
     mimeType: 'image/png',
-    buffer: Buffer.alloc(2_000_001),
+    buffer: Buffer.alloc(5_000_001),
   });
-  await expect(page.getByRole('alert')).toContainText('2 MB');
+  await expect(page.getByRole('alert')).toContainText('5 MB');
   await field.setInputFiles({
     name: 'invalid.png',
     mimeType: 'image/png',
     buffer: Buffer.from('invalid'),
   });
   await expect(page.getByRole('alert')).toContainText('無法解碼');
-  const buffer = await sharp({
-    create: { width: 1300, height: 650, channels: 3, background: '#308960' },
-  })
+  const buffer = await sharp(
+    Buffer.from(
+      '<svg xmlns="http://www.w3.org/2000/svg" width="2600" height="1300"><rect width="2600" height="1300" fill="#f7f5db"/><rect y="0" width="2600" height="300" fill="#356991"/><rect y="1070" width="2600" height="230" fill="#238267"/><text x="1300" y="635" text-anchor="middle" font-size="210" font-family="sans-serif" font-weight="bold" fill="#123554">Training</text><text x="1300" y="905" text-anchor="middle" font-size="140" font-family="sans-serif" fill="#238267">0.5 mg/mL</text></svg>',
+    ),
+  )
     .png()
     .toBuffer();
   await field.setInputFiles({
@@ -268,7 +307,83 @@ test('圖片尺寸、格式、裁切及無效內容', async ({ page }) => {
     buffer,
   });
   await expect(page.getByLabel('圖片顯示')).toBeVisible();
-  await page.getByLabel('圖片顯示').selectOption('fill');
+  await expect(page.getByLabel('圖片顯示')).toHaveValue('fill');
+  const crop = page.locator('.crop-frame');
+  await crop.scrollIntoViewIfNeeded();
+  await expect(crop.locator('img')).toBeVisible();
+  const rect = (await crop.boundingBox())!;
+  await page.mouse.move(rect.x + rect.width / 2, rect.y + rect.height / 2);
+  await page.mouse.down();
+  await page.mouse.move(
+    rect.x + rect.width / 2 + 30,
+    rect.y + rect.height / 2,
+    { steps: 5 },
+  );
+  await page.mouse.up();
+  await expect(page.getByLabel('水平位置')).not.toHaveValue('0.5');
+  await page.getByRole('button', { name: '重置裁切' }).click();
+  await expect(page.getByLabel('水平位置')).toHaveValue('0.5');
+  const touch = await page.context().newCDPSession(page);
+  try {
+    await touch.send('Emulation.setTouchEmulationEnabled', {
+      enabled: true,
+      maxTouchPoints: 1,
+    });
+    await crop.scrollIntoViewIfNeeded();
+    const area = (await crop.boundingBox())!;
+    const center = {
+      x: Math.round(area.x + area.width / 2),
+      y: Math.round(area.y + area.height / 2),
+    };
+    await touch.send('Input.dispatchTouchEvent', {
+      type: 'touchStart',
+      touchPoints: [center],
+    });
+    await touch.send('Input.dispatchTouchEvent', {
+      type: 'touchMove',
+      touchPoints: [{ ...center, x: center.x - 35 }],
+    });
+    await touch.send('Input.dispatchTouchEvent', {
+      type: 'touchEnd',
+      touchPoints: [],
+    });
+    await expect(page.getByLabel('水平位置')).not.toHaveValue('0.5');
+  } finally {
+    await touch.send('Emulation.setTouchEmulationEnabled', { enabled: false });
+    await touch.detach();
+  }
+  await page.getByRole('button', { name: '重置裁切' }).click();
+  await page.getByRole('button', { name: '紫色', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: '紫色', exact: true }),
+  ).toHaveAttribute('aria-pressed', 'true');
+  await page.screenshot({
+    path: info.outputPath('crop-box.png'),
+    fullPage: true,
+  });
+  await page.getByLabel('3D 包裝模板').selectOption('bottle');
+  await expect(crop).not.toHaveCSS('aspect-ratio', '0.6 / 1');
+  await page.locator('.package-preview').scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: info.outputPath('bottle-front.png'),
+    fullPage: true,
+  });
+  const packageCanvas = (await page
+    .locator('.package-preview canvas')
+    .boundingBox())!;
+  const center = {
+    x: packageCanvas.x + packageCanvas.width / 2,
+    y: packageCanvas.y + packageCanvas.height / 2,
+  };
+  await page.mouse.move(center.x, center.y);
+  await page.mouse.down();
+  await page.mouse.move(center.x + 38, center.y, { steps: 6 });
+  await page.mouse.up();
+  await page.screenshot({
+    path: info.outputPath('bottle-side.png'),
+    fullPage: true,
+  });
+
   await page.getByRole('button', { name: '新增藥品', exact: true }).click();
   await page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
   await page.getByRole('button', { name: '進入我的藥局' }).click();
@@ -283,10 +398,12 @@ test('圖片尺寸、格式、裁切及無效內容', async ({ page }) => {
   const html = await readFile((await download.path())!, 'utf8');
   const data = JSON.parse(html.match(/id="pharmacy-data">([^<]+)</)![1]);
   expect(data.catalog[0].crop.mode).toBe('fill');
+  expect(data.catalog[0].palette).toBe('violet');
+  expect(data.catalog[0].template).toBe('bottle');
   const img = await sharp(
     Buffer.from(data.catalog[0].image.split(',')[1], 'base64'),
   ).metadata();
-  expect([img.width, img.height]).toEqual([1024, 512]);
+  expect([img.width, img.height]).toEqual([2048, 1024]);
 });
 
 test('離開等待中的進貨並重置，舊請求不寫回', async ({ page }) => {
@@ -326,4 +443,57 @@ test('離開等待中的進貨並重置，舊請求不寫回', async ({ page }) 
   await expect(page.getByText('目前有 0 種藥品')).toBeVisible();
   await page.getByRole('button', { name: /從已知的代碼進貨/ }).click();
   await expect(page.getByRole('button', { name: '確認進貨' })).toHaveCount(0);
+});
+
+test('學名與商品名搜尋、整格替換及丟棄', async ({ page }) => {
+  await page.goto('./');
+  const manage = () =>
+    page.getByRole('button', { name: '我要管理藥品' }).click();
+  const home = () =>
+    page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
+  await manage();
+  await page.getByRole('button', { name: /我要進貨/ }).click();
+  await fillMedicine(page, 'Alpha Example');
+  await page.getByLabel('商品名').fill('Learning Label');
+  await page.getByRole('button', { name: '橘色', exact: true }).click();
+  await page.getByRole('button', { name: '新增藥品', exact: true }).click();
+  const search = page.getByLabel('搜尋學名或商品名');
+  for (const key of ['ALPHA', 'earning']) {
+    await search.fill(key);
+    await expect(
+      page.getByText('Alpha Example', { exact: true }),
+    ).toBeVisible();
+  }
+  await search.fill('absent');
+  await expect(page.getByText('找不到符合的藥品。')).toBeVisible();
+  await home();
+  await manage();
+  await page.getByRole('button', { name: /我要進貨/ }).click();
+  await fillMedicine(page, 'Beta Example');
+  await page.getByLabel('OTC／RX 分類').selectOption('OTC');
+  await page.getByLabel('3D 包裝模板').selectOption('pouch');
+  await page.getByRole('button', { name: '新增藥品', exact: true }).click();
+  await home();
+  await page.getByRole('button', { name: '進入我的藥局' }).click();
+  await page.getByRole('button', { name: 'OTC-01', exact: true }).click();
+  await page.getByRole('button', { name: '開啟 OTC-01 藥架' }).click();
+  const row = (name: string) =>
+    page.getByRole('listitem').filter({ hasText: name });
+  await row('Alpha Example')
+    .getByRole('button', { name: '選擇', exact: true })
+    .click();
+  await page.getByRole('button', { name: '1 · 空', exact: true }).click();
+  await expect(page.getByRole('status')).toHaveText('這項藥品尚未分類。');
+  await page.getByRole('button', { name: '1 · Alpha Example' }).click();
+  await page.getByRole('button', { name: '替換', exact: true }).click();
+  await row('Beta Example').getByRole('button', { name: '換成此藥品' }).click();
+  await expect(
+    page.getByRole('button', { name: '1 · Alpha Example' }),
+  ).toHaveCount(0);
+  await page.getByRole('button', { name: '1 · Beta Example' }).click();
+  await page.getByRole('button', { name: '丟棄', exact: true }).click();
+  await expect(
+    page.getByRole('button', { name: '1 · 空', exact: true }),
+  ).toBeVisible();
+  await expect(row('Beta Example')).toBeVisible();
 });

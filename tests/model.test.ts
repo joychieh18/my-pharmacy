@@ -87,9 +87,9 @@ describe('個人藥品與固定模型', () => {
     expect(
       Object.values(packages).map((p) => [p.width, p.height, p.depth]),
     ).toEqual([
-      [0.09, 0.15, 0.05],
-      [0.08, 0.12, 0.08],
-      [0.1, 0.14, 0.02],
+      [0.135, 0.225, 0.075],
+      [0.12, 0.18, 0.12],
+      [0.15, 0.21, 0.03],
     ]);
   });
   it('批次進貨保留首筆並拒絕無效整批', () => {
@@ -125,7 +125,7 @@ describe('藥架與分享', () => {
         (n, s) => ({ ...n, [s.y]: (n[s.y] ?? 0) + 1 }),
         {},
       ),
-    ).toEqual({ '1.46': 2, '1.03': 3, '0.6': 3, '0.16999999999999993': 2 });
+    ).toEqual({ '1.46': 2, '1.03': 3, '0.6': 3, '0.17': 2 });
     expect(place(filled, 'OTC-01', 10, 'test')).toEqual(filled);
     expect(place(filled, 'OTC-01', 0, 'missing')).toEqual(filled);
     expect(addRack(filled, 'OTC-01')).toEqual(filled);

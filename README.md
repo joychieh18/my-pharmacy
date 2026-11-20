@@ -1,7 +1,9 @@
-# my-pharmacy
+# My Pharmacy v23
 Interactive 3D pharmacy education game.
 
 短暫體驗的繁體中文 3D 藥學教育遊戲。遊戲只在記憶體保存個人進度，教材草稿則保存在管理端瀏覽器的 IndexedDB。
+
+學生上架一次即可自動填滿同品項的橫列及縱深。新版使用固定 1.5 倍包裝、彩色通用標籤、全正面及曲面貼圖，獨立藥架支援縮放及平移。
 
 ## 本機使用
 
@@ -28,10 +30,16 @@ CI 在 Pull Request 與 main 上驗證教材歷史、測試與建置。GitHub �
 
 ## 教材發布
 
-在管理端建立教材藥品和主題，輸入事先選定的代碼並匯出 ZIP。具權限的維護者將 ZIP 中的 `public/teaching/` 合併至最新儲存庫分支，檢查差異後提出 PR。已發布版本、圖片及代碼對應不可變更。停用或重新啟用由管理端匯出索引變更，並經相同發布程序生效。教材與代碼均屬公開資料。
+1. 在管理端驗證並匯出 ZIP 後，先解壓縮。確認有 `public/teaching/index.json`、新的 `versions/*.json`，有圖片時另有 `images/*`。
+2. 將檔案合併到從最新 `main` 建立的 Git 分支，維持這些相對路徑。新版本與圖片放進各自資料夾；比對索引，確認保留原有代碼和版本對應。若匯出後 `main` 又收錄其他教材，取得最新索引並重新匯出，或合併索引時只增加本次代碼。
+3. 以 GitHub Pull Request 檢查差異及驗證結果。合併後等 Pages 的部署工作成功。
+4. 開啟學生遊戲的「我要管理藥品 → 從已知的代碼進貨」，輸入該六位代碼，點「預覽進貨」核對後再確認。ZIP 供維護者發布，學生只需輸入代碼。
 
-- [正式需求](docs/REQUIREMENTS_V22.md)
-- [執行指令原文](docs/REQUIREMENTS_V22_SUPPLEMENT.md)
+已發布的版本、圖片及代碼對應維持不可變；停用或重新啟用只提交索引狀態。教材與代碼均屬公開資料。
+
+- [v23 正式需求](docs/REQUIREMENTS_V23.md)
+- [v22 正式需求](docs/REQUIREMENTS_V22.md)
+- [v22 補充指令](docs/REQUIREMENTS_V22_SUPPLEMENT.md)
 - [架構與場景參數](docs/ARCHITECTURE.md)
-- [實作決策](docs/DECISIONS.md)
+- [實作決策與陳列數量](docs/DECISIONS.md)
 - [測試結果](docs/TEST_REPORT.md)

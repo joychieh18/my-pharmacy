@@ -434,3 +434,52 @@ fieldset {
 .scene-overlay .floor-add {
   pointer-events: auto;
 }
+
+.palette {
+  grid-column: 1 / -1;
+}
+.palette-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.4rem 0;
+}
+.palette-options button {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+.palette-options button[aria-pressed='true'] {
+  border-color: #168460;
+  background: #d7f0e2;
+}
+.palette-options i {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+}
+.crop-frame {
+  position: relative;
+  width: min(65%, 9rem);
+  background: #fff;
+  outline: 1px solid #9dbbad;
+  overflow: hidden;
+  margin: 0 auto 0.5rem;
+}
+.crop-frame img {
+  position: absolute;
+  max-width: none;
+  pointer-events: none;
+}
+.crop-draggable {
+  touch-action: none;
+  cursor: grab;
+}
+.crop-draggable:active {
+  cursor: grabbing;
+}
+.camera-help {
+  font-size: 0.85rem;
+  color: var(--muted);
+}

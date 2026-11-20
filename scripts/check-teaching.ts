@@ -1,3 +1,4 @@
+import { maxImageBytes, maxImageSide } from '../src/images';
 import { execFileSync } from 'node:child_process';
 import { lstat, readFile } from 'node:fs/promises';
 import sharp from 'sharp';
@@ -74,10 +75,10 @@ for (const [code, entry] of Object.entries(current.codes)) {
     ids.add(key);
     if (!med.image) continue;
     const bytes = await checkFile(med.image);
-    if (bytes.length > 2_000_000)
+    if (bytes.length > maxImageBytes)
       throw new Error(`教材圖片檔案過大：${med.image}`);
     const img = sharp(bytes, {
-      limitInputPixels: 1024 * 1024,
+      limitInputPixels: maxImageSide ** 2,
       failOn: 'warning',
     });
     const meta = await img.metadata();
@@ -86,7 +87,7 @@ for (const [code, entry] of Object.entries(current.codes)) {
       : med.image.split('.').at(-1);
     if (
       meta.format !== expected ||
-      Math.max(meta.width, meta.height) > 1024 ||
+      Math.max(meta.width, meta.height) > maxImageSide ||
       (meta.pages ?? 1) > 1
     ) {
       throw new Error(`教材圖片格式或尺寸錯誤：${med.image}`);
