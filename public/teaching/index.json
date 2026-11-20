@@ -8,6 +8,10 @@
     "AP5555": {
       "active": true,
       "manifest": "versions/61c09a50-1c8b-462b-b2d4-09b8b2278595.json"
+    },
+    "DAPA22": {
+      "active": true,
+      "manifest": "versions/9c73ba8f-2a98-4df4-b0a0-d886b66c1622.json"
     }
   }
 }
