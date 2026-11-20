@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "title": "DMtest",
+  "version": "9c73ba8f-2a98-4df4-b0a0-d886b66c1622",
+  "medicines": [
+    {
+      "genericName": "dapagliflozin",
+      "dosageFormId": "tablet",
+      "strength": "10mg",
+      "classification": null,
+      "brand": "Forxiga",
+      "category": "antidiabetic"
+    }
+  ]
+}
