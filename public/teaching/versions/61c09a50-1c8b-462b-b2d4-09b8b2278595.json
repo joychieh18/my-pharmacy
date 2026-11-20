@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "title": "Antiplatelet2",
+  "version": "61c09a50-1c8b-462b-b2d4-09b8b2278595",
+  "medicines": [
+    {
+      "genericName": "dabigatran",
+      "dosageFormId": "capsule",
+      "strength": "110mg",
+      "classification": "RX"
+    },
+    {
+      "genericName": "ticagrelor",
+      "dosageFormId": "tablet",
+      "strength": "90mg",
+      "classification": "RX"
+    },
+    {
+      "genericName": "aspirin",
+      "dosageFormId": "capsule",
+      "strength": "100mg",
+      "classification": "RX",
+      "category": "antiplatlet"
+    }
+  ]
+}

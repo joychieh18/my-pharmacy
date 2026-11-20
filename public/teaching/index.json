@@ -4,6 +4,10 @@
     "AP4444": {
       "active": true,
       "manifest": "versions/6985fa2a-304a-4c75-a1d8-70e986a4ef85.json"
+    },
+    "AP5555": {
+      "active": true,
+      "manifest": "versions/61c09a50-1c8b-462b-b2d4-09b8b2278595.json"
     }
   }
 }
