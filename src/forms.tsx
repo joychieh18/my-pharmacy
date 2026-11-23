@@ -282,41 +282,87 @@ export function MedicineForm({
   );
 }
 
+const classifications = ['全部', 'RX', 'OTC', '未分類'] as const;
+
 export function MedicineList({
   catalog,
   children,
+  shelfPicker = false,
 }: {
   catalog: Medicine[];
   children: (med: Medicine) => React.ReactNode;
+  shelfPicker?: boolean;
 }) {
   const [query, setQuery] = useState('');
-  const matches = searchCatalog(catalog, query);
+  const [classification, setClassification] =
+    useState<(typeof classifications)[number]>('全部');
+  const results = useRef<HTMLDivElement>(null);
+  const matches = searchCatalog(catalog, query).filter(
+    (item) =>
+      classification === '全部' ||
+      (item.classification ?? '未分類') === classification,
+  );
   return (
-    <>
-      <label>
-        搜尋學名或商品名
-        <input
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          type="search"
-        />
-      </label>
-      {matches.length ? (
-        <ul className="medicine-list">
-          {matches.map((m) => (
-            <li key={m.id}>
-              <div>
-                <strong>{m.genericName}</strong> <span>{m.strength}</span>
-                {m.brand && <small>{m.brand}</small>}
-              </div>
-              <span className="pill">{m.classification ?? '未分類'}</span>
-              {children(m)}
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>{catalog.length ? '找不到符合的藥品。' : '目錄目前沒有藥品。'}</p>
-      )}
-    </>
+    <div className={shelfPicker ? 'shelf-picker' : undefined}>
+      <div className={shelfPicker ? 'shelf-picker-controls' : undefined}>
+        <label>
+          搜尋學名或商品名
+          <input
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value);
+              if (results.current) results.current.scrollTop = 0;
+            }}
+            type="search"
+          />
+        </label>
+        {shelfPicker && (
+          <>
+            <div className="picker-filters" role="group" aria-label="藥品分類">
+              {classifications.map((filter) => (
+                <button
+                  key={filter}
+                  type="button"
+                  aria-pressed={classification === filter}
+                  onClick={() => {
+                    setClassification(filter);
+                    if (results.current) results.current.scrollTop = 0;
+                  }}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+            <p className="picker-count" aria-live="polite">
+              符合條件：{matches.length} 種藥品
+            </p>
+          </>
+        )}
+      </div>
+      <div
+        ref={results}
+        className={shelfPicker ? 'picker-results' : undefined}
+        role={shelfPicker ? 'region' : undefined}
+        aria-label={shelfPicker ? '符合條件的藥品' : undefined}
+        tabIndex={shelfPicker ? 0 : undefined}
+      >
+        {matches.length ? (
+          <ul className="medicine-list">
+            {matches.map((m) => (
+              <li key={m.id}>
+                <div>
+                  <strong>{m.genericName}</strong> <span>{m.strength}</span>
+                  {m.brand && <small>{m.brand}</small>}
+                </div>
+                <span className="pill">{m.classification ?? '未分類'}</span>
+                {children(m)}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>{catalog.length ? '找不到符合的藥品。' : '目錄目前沒有藥品。'}</p>
+        )}
+      </div>
+    </div>
   );
 }

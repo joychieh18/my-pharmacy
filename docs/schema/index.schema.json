@@ -13,7 +13,7 @@
     "codes": {
       "type": "object",
       "propertyNames": {
-        "pattern": "^(?=.*[A-HJ-NP-Z])(?=.*[2-9])[A-HJ-NP-Z2-9]{6}$"
+        "pattern": "^(?=.*[A-Z])(?=.*[0-9])[A-Z0-9]{6}$"
       },
       "additionalProperties": {
         "type": "object",

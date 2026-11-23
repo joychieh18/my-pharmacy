@@ -10,6 +10,7 @@ import {
   type Medicine,
 } from './model';
 import { loadPack, type TeachingPack } from './teaching';
+import { GameHelp } from './game-help';
 import { Pharmacy } from './pharmacy';
 import { exportShare } from './share';
 import './style.css';
@@ -52,17 +53,48 @@ function App() {
 
   return (
     <>
-      <header className="site-header">
+      <header
+        className={page === 'home' ? 'site-header home-header' : 'site-header'}
+      >
         {page === 'home' ? (
           <span className="brand">
             <b>+</b> 我的藥局 <small>My Pharmacy</small>
           </span>
         ) : (
-          <button className="brand" onClick={() => navigate('home')}>
-            <b>+</b> 我的藥局 <small>My Pharmacy</small>
+          <button className="home-back" onClick={() => navigate('home')}>
+            <span aria-hidden="true">←</span> 返回首頁
           </button>
         )}
-        <span>藥學互動教學</span>
+        {page === 'home' ? (
+          <div className="actions home-toolbar">
+            <button
+              type="button"
+              onClick={() => {
+                if (
+                  !confirm('重新開始遊戲？本次個人藥品、藥架名稱及擺放將清除。')
+                )
+                  return;
+                navigate('home');
+                setGame(initialGame());
+              }}
+            >
+              重新開始遊戲
+            </button>
+            <GameHelp title="遊戲說明">
+              <ol>
+                <li>從「我要管理藥品」新增藥品，或輸入教師提供的代碼進貨。</li>
+                <li>進入我的藥局，點選藥架與藥品，再點空格上架。</li>
+                <li>點已上架的藥品查看資訊、替換或丟棄。</li>
+                <li>在 3D 總覽點「下載 HTML 成果」保存唯讀展示。</li>
+              </ol>
+              <p className="game-help-note">
+                重新整理網頁後，本次遊戲進度會消失。
+              </p>
+            </GameHelp>
+          </div>
+        ) : (
+          <span>藥學互動教學</span>
+        )}
       </header>
       <main className={page === 'home' ? 'landing' : undefined}>
         {page === 'home' ? (
@@ -78,12 +110,16 @@ function App() {
                 從進貨到上架，打造你的社區藥局。
                 <br />在 3D 空間中練習整理、辨識與陳列藥品。
               </p>
-              <div className="actions">
-                <button className="primary" onClick={() => navigate('scene')}>
-                  進入我的藥局 <span aria-hidden="true">↗</span>
-                </button>
+              <div className="home-start-guide">
+                <strong>先進貨，再開始上架吧！</strong>
+                <p>先到『管理藥品』新增或匯入藥品，再進入藥局開始擺放。</p>
+              </div>
+              <div className="actions home-actions">
                 <button onClick={() => navigate('management')}>
                   我要管理藥品
+                </button>
+                <button className="primary" onClick={() => navigate('scene')}>
+                  進入我的藥局 <span aria-hidden="true">↗</span>
                 </button>
               </div>
             </div>
@@ -257,12 +293,6 @@ function App() {
                 game={game}
                 editing={{
                   setGame,
-                  onRestart: () => {
-                    cancelRequest();
-                    setEdit(undefined);
-                    setResult(undefined);
-                    setGame(initialGame());
-                  },
                   onShare: () => exportShare(game),
                 }}
               />

@@ -181,11 +181,8 @@ describe('藥架與分享', () => {
 describe('教材規格', () => {
   it('先驗證 ASCII 再正規化，拒絕非法代碼', () => {
     expect(normalizeCode('ab2c34')).toBe('AB2C34');
+    expect(normalizeCode('oi01ab')).toBe('OI01AB');
     for (const code of [
-      'ABOC34',
-      'AB0C34',
-      'ABIC34',
-      'AB1C34',
       'ABCDEF',
       '234567',
       ' AB234',

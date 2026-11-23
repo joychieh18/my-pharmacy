@@ -42,7 +42,7 @@ it('發布檢查解碼圖檔、禁止歷史覆寫並允許停用及重新啟用'
       write('index.json', {
         schemaVersion: 1,
         codes: {
-          AB2C34: { active, manifest: 'versions/fixture.json' },
+          OI01AB: { active, manifest: 'versions/fixture.json' },
         },
       });
     writeIndex(true);

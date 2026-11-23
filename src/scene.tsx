@@ -432,7 +432,13 @@ export function Scene({
           fov: 43,
           near: 0.025,
         }}
-        fallback={<p>此瀏覽器無法啟用 WebGL。仍可使用下方清單操作。</p>}
+        fallback={
+          <p>
+            {rack
+              ? '此瀏覽器無法啟用 WebGL。仍可在下方查看格位資訊，3D 格位操作需使用支援 WebGL 的瀏覽器。'
+              : '此瀏覽器無法啟用 WebGL。仍可使用下方位置清單開啟藥架。'}
+          </p>
+        }
       >
         <color attach="background" args={[rack ? '#eff3f1' : '#e4f0e9']} />
         <ambientLight intensity={1.65} />
