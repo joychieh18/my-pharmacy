@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { MedicineList, errorText } from './forms';
+import { PharmacyHelp } from './game-help';
 import { Scene } from './scene';
 import {
   addRack,
@@ -17,7 +18,6 @@ import {
 
 interface Editing {
   setGame: (game: Game) => void;
-  onRestart: () => void;
   onShare: () => Promise<void>;
 }
 
@@ -32,6 +32,7 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
   const [error, setError] = useState('');
   const [sharing, setSharing] = useState(false);
   const rack = game.racks.find((r) => r.id === rackId);
+  const medicineToPlace = game.catalog.find((item) => item.id === medicineId);
   const selectedRack = game.racks.find((r) => r.id === overviewSelection);
   const selected = game.catalog.find(
     (m) => slot !== undefined && rack?.items[slot] === m.id,
@@ -67,8 +68,7 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
     setReplace(false);
   }
   function chooseSlot(i: number) {
-    const med = game.catalog.find((m) => m.id === medicineId);
-    if (!rack?.items[i] && med) put(i, med);
+    if (!rack?.items[i] && medicineToPlace) put(i, medicineToPlace);
     else {
       setSlot(i);
       setReplace(false);
@@ -89,6 +89,12 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
         <div className="actions">
           {rack && <button onClick={() => openRack()}>返回總覽</button>}
           <button onClick={() => setReset((n) => n + 1)}>恢復預設視角</button>
+          {editing && (
+            <PharmacyHelp
+              hasMedicines={game.catalog.length > 0}
+              shelf={Boolean(rack)}
+            />
+          )}
         </div>
       </div>
       <div className={rack ? 'shelf-layout' : undefined}>
@@ -111,19 +117,15 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
             highlight={Boolean(medicineId && editing)}
           />
           {rack && (
-            <div className="slot-list" aria-label="格位清單">
+            <ul className="slot-list" aria-label="格位資訊">
               {slots.map((_, i) => (
-                <button
-                  className={slot === i ? 'selected' : ''}
-                  key={i}
-                  onClick={() => chooseSlot(i)}
-                >
+                <li key={i}>
                   {i + 1} ·{' '}
                   {game.catalog.find((m) => m.id === rack.items[i])
                     ?.genericName ?? '空'}
-                </button>
+                </li>
               ))}
-            </div>
+            </ul>
           )}
         </div>
         {rack && (
@@ -198,18 +200,30 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
               <>
                 <h2>{replace ? '選擇替換藥品' : '選擇上架藥品'}</h2>
                 <p>
-                  {medicineId
-                    ? '請點選空格放置藥品。'
-                    : '選擇藥品後，點選空格。'}
+                  {medicineToPlace ? (
+                    <>
+                      已選取{' '}
+                      <strong>
+                        {medicineToPlace.genericName} ·{' '}
+                        {medicineToPlace.strength}
+                      </strong>
+                      。請點選 3D 藥架空格。
+                    </>
+                  ) : (
+                    '選擇藥品後，點選 3D 藥架空格。'
+                  )}
                 </p>
                 {medicineId && (
                   <button onClick={() => setMedicine(undefined)}>
                     取消選藥
                   </button>
                 )}
-                <MedicineList catalog={game.catalog}>
+                <MedicineList catalog={game.catalog} shelfPicker>
                   {(med) => (
                     <button
+                      aria-pressed={
+                        !replace ? medicineId === med.id : undefined
+                      }
                       className={medicineId === med.id ? 'selected' : ''}
                       onClick={() => {
                         if (replace && slot !== undefined) put(slot, med);
@@ -299,23 +313,6 @@ export function Pharmacy({ game, editing }: { game: Game; editing?: Editing }) {
                 }}
               >
                 {sharing ? '正在準備成果…' : '下載 HTML 成果'}
-              </button>
-              <button
-                onClick={() => {
-                  if (
-                    confirm(
-                      '重新開始遊戲？本次個人藥品、藥架名稱及擺放將清除。',
-                    )
-                  ) {
-                    setOverviewSelection(undefined);
-                    setNotice(undefined);
-                    setError('');
-                    setReset((n) => n + 1);
-                    editing.onRestart();
-                  }
-                }}
-              >
-                重新開始遊戲
               </button>
             </div>
           )}

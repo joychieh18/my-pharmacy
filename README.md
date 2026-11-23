@@ -1,4 +1,4 @@
-# My Pharmacy v23
+# My Pharmacy v24
 Interactive 3D pharmacy education game.
 
 短暫體驗的繁體中文 3D 藥學教育遊戲。遊戲只在記憶體保存個人進度，教材草稿則保存在管理端瀏覽器的 IndexedDB。
@@ -37,6 +37,7 @@ CI 在 Pull Request 與 main 上驗證教材歷史、測試與建置。GitHub �
 
 已發布的版本、圖片及代碼對應維持不可變；停用或重新啟用只提交索引狀態。教材與代碼均屬公開資料。
 
+- [v24 第一階段 UI／UX](docs/REQUIREMENTS_V24.md)
 - [v23 正式需求](docs/REQUIREMENTS_V23.md)
 - [v22 正式需求](docs/REQUIREMENTS_V22.md)
 - [v22 補充指令](docs/REQUIREMENTS_V22_SUPPLEMENT.md)

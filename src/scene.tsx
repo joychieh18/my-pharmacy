@@ -1,4 +1,4 @@
-import { Canvas, useThree } from '@react-three/fiber';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Html, OrbitControls } from '@react-three/drei';
 import {
   memo,
@@ -24,6 +24,8 @@ import {
   type Rack,
   type RackId,
   shelf,
+  shelfView,
+  slotHitArea,
   positions,
   slots,
   templateFor,
@@ -116,7 +118,7 @@ function Shelf({
           const { x, y, width } = slot;
           const med = game.catalog.find((m) => m.id === rack.items[i]);
           const w = width - 0.055;
-          const h = 0.31;
+          const h = slotHitArea.height;
           const lineColor = highlight ? '#16ac75' : '#a9c3b9';
           return (
             <group key={i} position={[x, y, 0]}>
@@ -150,7 +152,7 @@ function Shelf({
               )}
               {(med || highlight) && (
                 <mesh
-                  position={[0, h / 2, 0.205]}
+                  position={[0, h / 2, slotHitArea.z]}
                   onClick={(e) => {
                     e.stopPropagation();
                     onSlot?.(i);
@@ -266,6 +268,17 @@ const Room = memo(function Room({ overlay }: { overlay: Overlay }) {
   );
 });
 
+function SceneReady() {
+  const rendered = useRef(false);
+  useFrame(({ gl }) => {
+    if (rendered.current) return;
+    rendered.current = true;
+    // Input can reach this canvas once the first frame and its scene setup finish.
+    gl.domElement.dataset.sceneReady = 'true';
+  });
+  return null;
+}
+
 function SceneCamera({ close }: { close: boolean }) {
   const { size, camera, invalidate } = useThree();
   const controls = useRef<OrbitControlsImpl>(null);
@@ -281,7 +294,7 @@ function SceneCamera({ close }: { close: boolean }) {
     target.copy(clamped);
   }
   const aspect = size.width / size.height;
-  const zoom = Math.min(1, aspect / (close ? 0.81 : 1.34));
+  const zoom = Math.min(1, aspect / (close ? shelfView.minAspect : 1.34));
   useEffect(() => {
     camera.zoom = zoom;
     camera.updateProjectionMatrix();
@@ -289,7 +302,7 @@ function SceneCamera({ close }: { close: boolean }) {
   }, [camera, invalidate, zoom]);
   return (
     <OrbitControls
-      target={close ? [0, 0.92, 0] : [4.5, 0.45, 3.5]}
+      target={close ? [...shelfView.target] : [4.5, 0.45, 3.5]}
       minDistance={close ? 0.48 : 6}
       maxDistance={close ? 5 : 23}
       enablePan={close}
@@ -428,11 +441,17 @@ export function Scene({
         shadows
         dpr={rack ? [1, 2] : [1, 1.5]}
         camera={{
-          position: rack ? [0, 1.35, 3.1] : [8.9, 8.2, -6.4],
-          fov: 43,
-          near: 0.025,
+          position: rack ? [...shelfView.position] : [8.9, 8.2, -6.4],
+          fov: shelfView.fov,
+          near: shelfView.near,
         }}
-        fallback={<p>此瀏覽器無法啟用 WebGL。仍可使用下方清單操作。</p>}
+        fallback={
+          <p>
+            {rack
+              ? '此瀏覽器無法啟用 WebGL。仍可在下方查看格位資訊，3D 格位操作需使用支援 WebGL 的瀏覽器。'
+              : '此瀏覽器無法啟用 WebGL。仍可使用下方位置清單開啟藥架。'}
+          </p>
+        }
       >
         <color attach="background" args={[rack ? '#eff3f1' : '#e4f0e9']} />
         <ambientLight intensity={1.65} />
@@ -441,6 +460,7 @@ export function Scene({
           rackLayout={rack?.id ?? game.racks.map((item) => item.id).join(',')}
         />
         <SceneCamera close={Boolean(rack)} />
+        <SceneReady />
         {rack ? (
           <>
             <Block size={[3, 0.06, 2]} at={[0, -0.03, 0]} color="#e6eee9" />

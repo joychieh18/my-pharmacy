@@ -1,3 +1,4 @@
+import { selectFirst3DSlot } from './shelf-interaction';
 import { expect, test, type Page } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
 import { randomFillSync } from 'node:crypto';
@@ -39,7 +40,7 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
   await page.getByRole('button', { name: '新增藥品' }).click();
   await expect(page.getByText('Sample </script> A')).toBeVisible();
   await page.screenshot({ path: info.outputPath('02-catalog.png') });
-  await page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
+  await page.getByRole('button', { name: '返回首頁', exact: true }).click();
   await page.getByRole('button', { name: '進入我的藥局' }).click();
   await expect(page.locator('.scene canvas')).toBeVisible();
   await expect(
@@ -55,18 +56,12 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
   await page.getByLabel('藥架名稱').fill('教學架');
   await page.getByRole('button', { name: '儲存名稱' }).click();
   await page.getByRole('button', { name: '選擇', exact: true }).click();
-  const canvas = page.locator('.scene canvas');
-  const bounds = (await canvas.boundingBox())!;
-  await canvas.click({
-    position: { x: bounds.width * 0.425, y: bounds.height * 0.23 },
-  });
+  await selectFirst3DSlot(page);
   await expect(page.getByRole('status')).toContainText('處方藥');
   await expect(
     page.getByRole('heading', { name: 'Sample </script> A' }),
   ).toHaveCount(0);
-  await canvas.click({
-    position: { x: bounds.width * 0.425, y: bounds.height * 0.23 },
-  });
+  await selectFirst3DSlot(page);
   await expect(
     page.getByRole('heading', { name: 'Sample </script> A' }),
   ).toBeVisible();
@@ -79,13 +74,24 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
   expect(await readFile(path, 'utf8')).toContain(
     'Sample \\u003c/script\\u003e A',
   );
+  await expect(page.getByRole('button', { name: '重新開始遊戲' })).toHaveCount(
+    0,
+  );
+  const goHome = () =>
+    page.getByRole('button', { name: '返回首頁', exact: true }).click();
+  const goScene = () =>
+    page.getByRole('button', { name: '進入我的藥局' }).click();
+  await goHome();
   page.once('dialog', (d) => d.dismiss());
   await page.getByRole('button', { name: '重新開始遊戲' }).click();
+  await goScene();
   await expect(
     page.getByRole('button', { name: 'RX-02', exact: true }),
   ).toBeVisible();
+  await goHome();
   page.once('dialog', (d) => d.accept());
   await page.getByRole('button', { name: '重新開始遊戲' }).click();
+  await goScene();
   await expect(
     page.getByRole('button', { name: '＋ RX-02', exact: true }),
   ).toBeVisible();
@@ -103,7 +109,10 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
     await viewer
       .getByRole('button', { name: 'OTC-01 · 教學架', exact: true })
       .tap();
-    await viewer.getByRole('button', { name: '1 · Sample </script> A' }).tap();
+    await expect(
+      viewer.getByRole('list', { name: '格位資訊' }).getByText('1 · Sample </script> A'),
+    ).toBeVisible();
+    await selectFirst3DSlot(viewer, true);
     await expect(
       viewer.getByRole('heading', { name: 'Sample </script> A' }),
     ).toBeVisible();
@@ -133,13 +142,13 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
   await page.getByLabel('圖片顯示').selectOption('contain');
   await page.getByRole('button', { name: '新增藥品', exact: true }).click();
   await page.getByLabel('主題名稱').fill('課堂練習');
-  await page.getByLabel('主題代碼').fill('ab2c34');
+  await page.getByLabel('主題代碼').fill('oi01ab');
   await page.getByRole('checkbox', { name: /Training Sample/ }).check();
   await page.getByRole('button', { name: '儲存主題草稿' }).click();
   await expect(page.getByRole('status')).toContainText('主題草稿已儲存');
   await page.reload();
   await page.getByRole('button', { name: '課堂練習' }).click();
-  await expect(page.getByLabel('主題代碼')).toHaveValue('AB2C34');
+  await expect(page.getByLabel('主題代碼')).toHaveValue('OI01AB');
   await page.getByRole('button', { name: '編輯', exact: true }).click();
   await expect(page.getByLabel('圖片顯示')).toHaveValue('contain');
   await expect(
@@ -160,9 +169,9 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
     new Uint8Array(await readFile((await (await downloading).path())!)),
   );
   const index = JSON.parse(strFromU8(zip['public/teaching/index.json']));
-  expect(index.codes.AB2C34.active).toBe(true);
+  expect(index.codes.OI01AB.active).toBe(true);
   const published = JSON.parse(
-    strFromU8(zip[`public/teaching/${index.codes.AB2C34.manifest}`]),
+    strFromU8(zip[`public/teaching/${index.codes.OI01AB.manifest}`]),
   );
   expect(published.medicines[0].palette).toBe('slate');
   let active = true;
@@ -174,7 +183,7 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
       return route.fulfill({
         json: {
           ...index,
-          codes: { AB2C34: { ...index.codes.AB2C34, active } },
+          codes: { OI01AB: { ...index.codes.OI01AB, active } },
         },
       });
     }
@@ -186,7 +195,7 @@ test('管理草稿、發布 ZIP、進貨與隔離', async ({ page }, info) => {
   await page.goto('./');
   await page.getByRole('button', { name: '我要管理藥品' }).click();
   await page.getByRole('button', { name: /從已知的代碼進貨/ }).click();
-  await page.getByLabel('教材代碼').fill('ab2c34');
+  await page.getByLabel('教材代碼').fill('oi01ab');
   await page.getByRole('button', { name: '預覽進貨' }).click();
   await expect(page.getByText('新增 1 項')).toBeVisible();
   await page.getByRole('button', { name: '確認進貨' }).click();
@@ -385,12 +394,12 @@ test('圖片尺寸、格式、裁切及無效內容', async ({ page }, info) => 
   });
 
   await page.getByRole('button', { name: '新增藥品', exact: true }).click();
-  await page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
+  await page.getByRole('button', { name: '返回首頁', exact: true }).click();
   await page.getByRole('button', { name: '進入我的藥局' }).click();
   await page.getByRole('button', { name: 'OTC-01', exact: true }).click();
   await page.getByRole('button', { name: '開啟 OTC-01 藥架' }).click();
   await page.getByRole('button', { name: '選擇', exact: true }).click();
-  await page.getByRole('button', { name: '1 · 空', exact: true }).click();
+  await selectFirst3DSlot(page);
   await page.getByRole('button', { name: '返回總覽' }).click();
   const downloading = page.waitForEvent('download');
   await page.getByRole('button', { name: '下載 HTML 成果' }).click();
@@ -422,7 +431,7 @@ test('離開等待中的進貨並重置，舊請求不寫回', async ({ page }) 
       .fulfill({
         json: {
           schemaVersion: 1,
-          codes: { AB2C34: { active: true, manifest: 'versions/demo.json' } },
+          codes: { OI01AB: { active: true, manifest: 'versions/demo.json' } },
         },
       })
       .catch(() => {});
@@ -430,15 +439,13 @@ test('離開等待中的進貨並重置，舊請求不寫回', async ({ page }) 
   await page.goto('./');
   await page.getByRole('button', { name: '我要管理藥品' }).click();
   await page.getByRole('button', { name: /從已知的代碼進貨/ }).click();
-  await page.getByLabel('教材代碼').fill('AB2C34');
+  await page.getByLabel('教材代碼').fill('OI01AB');
   await page.getByRole('button', { name: '預覽進貨' }).click();
   await requested;
-  await page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
-  await page.getByRole('button', { name: '進入我的藥局' }).click();
+  await page.getByRole('button', { name: '返回首頁', exact: true }).click();
   page.once('dialog', (d) => d.accept());
   await page.getByRole('button', { name: '重新開始遊戲' }).click();
   release();
-  await page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
   await page.getByRole('button', { name: '我要管理藥品' }).click();
   await expect(page.getByText('目前有 0 種藥品')).toBeVisible();
   await page.getByRole('button', { name: /從已知的代碼進貨/ }).click();
@@ -450,7 +457,7 @@ test('學名與商品名搜尋、整格替換及丟棄', async ({ page }) => {
   const manage = () =>
     page.getByRole('button', { name: '我要管理藥品' }).click();
   const home = () =>
-    page.getByRole('button', { name: /我的藥局 My Pharmacy/ }).click();
+    page.getByRole('button', { name: '返回首頁', exact: true }).click();
   await manage();
   await page.getByRole('button', { name: /我要進貨/ }).click();
   await fillMedicine(page, 'Alpha Example');
@@ -482,18 +489,18 @@ test('學名與商品名搜尋、整格替換及丟棄', async ({ page }) => {
   await row('Alpha Example')
     .getByRole('button', { name: '選擇', exact: true })
     .click();
-  await page.getByRole('button', { name: '1 · 空', exact: true }).click();
+  await selectFirst3DSlot(page);
   await expect(page.getByRole('status')).toHaveText('這項藥品尚未分類。');
-  await page.getByRole('button', { name: '1 · Alpha Example' }).click();
+  await selectFirst3DSlot(page);
   await page.getByRole('button', { name: '替換', exact: true }).click();
   await row('Beta Example').getByRole('button', { name: '換成此藥品' }).click();
   await expect(
-    page.getByRole('button', { name: '1 · Alpha Example' }),
+    page.locator('.slot-list').getByText('1 · Alpha Example', { exact: true }),
   ).toHaveCount(0);
-  await page.getByRole('button', { name: '1 · Beta Example' }).click();
+  await selectFirst3DSlot(page);
   await page.getByRole('button', { name: '丟棄', exact: true }).click();
   await expect(
-    page.getByRole('button', { name: '1 · 空', exact: true }),
+    page.locator('.slot-list').getByText('1 · 空', { exact: true }),
   ).toBeVisible();
   await expect(row('Beta Example')).toBeVisible();
 });

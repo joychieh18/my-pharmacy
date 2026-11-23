@@ -68,3 +68,20 @@ Debian Linux、Chromium 156.0.8078.79、SwiftShader 軟體渲染、Playwright �
 | 十種最長邊 2048 px 圖片 | 873 | 5,877 | 96 | 351 | 17／352 | 0 |
 
 [原始量測數據](screenshots/v23/shelf-metrics.json)
+
+# v24 第一階段驗收
+
+開發基準為已合併 v23 的 `main`（`7a8e249`）。正式教材及 Pages workflow 未變動。
+
+| 指令 | 結果 |
+|---|---|
+| `npm test` | 14 項通過，含六位英數代碼 O／0／I／1 的正規化與索引歷史保護。 |
+| `npm run check:teaching -- "$(git rev-parse origin/main)"` | 3 組教材代碼及 3 份資源驗證通過。 |
+| `npm run build` | TypeScript、GitHub Pages 子路徑的 Vite 正式建置與自包含成果檢視器通過。 |
+| `PHARMACY_CHROMIUM=/usr/bin/chromium PHARMACY_INLINE_OFFLINE=1 npm run e2e` | 10 項通過，含既有七十格滿載、唯讀 HTML、教材 ZIP／代碼進貨及 v24 UI／UX。 |
+
+桌面確認首頁左右順序與管理入口，手機 320、390 px 確認上下順序、藥局入口及頁首按鈕邊界。平板及矮視窗模擬確認 X 留在可見範圍，過長文字在說明內捲動。測試涵蓋 X、Esc、觸控遮罩、焦點返還，以及開啟說明時阻隔 Canvas 點擊並保留選藥。以模擬手機匯入 90 筆藥品，確認 RX／OTC／未分類各 30 筆、清單獨立觸控捲動及上架後保留搜尋與篩選。離線成果測試使用環境支援的內容載入模式。此回合沒有實測實體手機或平板。
+
+- [桌面首頁](screenshots/v24/home-desktop.png) · [手機首頁](screenshots/v24/home-mobile.png)
+- [總覽操作說明](screenshots/v24/help-overview.png) · [獨立藥架操作說明](screenshots/v24/help-shelf.png) · [手機說明](screenshots/v24/help-mobile.png)
+- [獨立藥架](screenshots/v24/shelf-desktop.png) · [手機藥架與大量藥品清單](screenshots/v24/shelf-mobile.png)

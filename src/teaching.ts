@@ -25,11 +25,13 @@ export interface TeachingPack {
 export function normalizeCode(raw: string) {
   if (
     raw.length !== 6 ||
-    !/^[A-HJ-NP-Za-hj-np-z2-9]+$/.test(raw) ||
+    !/^[A-Za-z0-9]+$/.test(raw) ||
     !/[A-Za-z]/.test(raw) ||
-    !/[2-9]/.test(raw)
+    !/[0-9]/.test(raw)
   ) {
-    throw new Error('請輸入六位英數混合代碼，且不含 O、0、I、1 或空白。');
+    throw new Error(
+      '請輸入六位英數混合代碼，至少包含一個英文字母及一個數字，不可留空格。',
+    );
   }
   return raw.toUpperCase();
 }

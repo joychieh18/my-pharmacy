@@ -367,15 +367,9 @@ input[type='checkbox'] {
 .error {
   color: #a22b2b;
 }
-.slot-list button {
-  font-size: 0.84rem;
-}
 .slot-list {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-}
-.slot-list button {
-  overflow-wrap: anywhere;
 }
 fieldset {
   padding: 0;
@@ -482,4 +476,155 @@ fieldset {
 .camera-help {
   font-size: 0.85rem;
   color: var(--muted);
+}
+
+.home-start-guide {
+  font-weight: 650;
+}
+
+.help-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 1.3rem;
+  line-height: 1;
+}
+
+.section-title {
+  position: relative;
+}
+.section-title:has(.help-icon) {
+  padding-inline-end: 3.4rem;
+}
+.section-title .help-icon[aria-haspopup] {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+}
+
+.game-help {
+  width: min(36rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  color: var(--ink);
+  background: white;
+  overflow: hidden;
+}
+.game-help::backdrop {
+  background: rgb(16 43 34 / 58%);
+}
+.game-help-content {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 2rem - 2px);
+}
+.game-help-body {
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 0 1.25rem 1.25rem;
+}
+.game-help-heading {
+  display: flex;
+  flex: none;
+  padding: 0.9rem 1.25rem 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+.game-help-heading h2 {
+  margin: 0;
+}
+.game-help ol {
+  padding-inline-start: 1.5rem;
+}
+.game-help li + li {
+  margin-block-start: 0.65rem;
+}
+.game-help-note {
+  padding: 0.65rem 0.8rem;
+  border-radius: 0.5rem;
+  background: var(--soft);
+}
+
+@media (max-width: 570px) {
+  .home-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.home-start-guide p {
+  margin: 0.25rem 0 1rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+.home-toolbar {
+  flex-wrap: nowrap;
+}
+.home-toolbar button {
+  white-space: nowrap;
+}
+.slot-list {
+  list-style: none;
+  padding: 0;
+  margin-block-end: 0;
+}
+.slot-list li {
+  padding: 0.55rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  background: white;
+  font-size: 0.84rem;
+  overflow-wrap: anywhere;
+}
+.shelf-picker {
+  height: 23rem;
+  display: flex;
+  flex-direction: column;
+}
+.shelf-picker-controls {
+  flex: none;
+}
+.picker-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.picker-filters button {
+  padding-inline: 0.6rem;
+  font-size: 0.85rem;
+}
+.picker-filters [aria-pressed='true'] {
+  background: #d7f0e2;
+  border-color: #168460;
+}
+.picker-count {
+  margin: 0.35rem 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.picker-results {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  scrollbar-gutter: stable;
+}
+@media (max-width: 420px) {
+  .home-header {
+    gap: 0.35rem;
+  }
+  .home-toolbar {
+    gap: 0.35rem;
+  }
+  .home-toolbar button:not(.help-icon) {
+    padding-inline: 0.55rem;
+  }
 }
