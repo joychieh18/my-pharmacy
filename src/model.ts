@@ -203,6 +203,15 @@ export const shelf = {
   back: 0.01,
   levels: [1.46, 1.03, 0.6, 0.17],
 } as const;
+export const shelfView = {
+  position: [0, 1.35, 3.1],
+  target: [0, 0.92, 0],
+  fov: 43,
+  near: 0.025,
+  minAspect: 0.81,
+} as const;
+export const slotHitArea = { height: 0.31, z: 0.205 } as const;
+
 export const slots = [2, 3, 3, 2].flatMap((cols, row) =>
   Array.from({ length: cols }, (_, col) => ({
     x: -shelf.width / 2 + ((col + 0.5) * shelf.width) / cols,

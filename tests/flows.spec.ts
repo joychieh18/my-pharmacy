@@ -56,18 +56,12 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
   await page.getByLabel('藥架名稱').fill('教學架');
   await page.getByRole('button', { name: '儲存名稱' }).click();
   await page.getByRole('button', { name: '選擇', exact: true }).click();
-  const canvas = page.locator('.scene canvas');
-  const bounds = (await canvas.boundingBox())!;
-  await canvas.click({
-    position: { x: bounds.width * 0.425, y: bounds.height * 0.23 },
-  });
+  await selectFirst3DSlot(page);
   await expect(page.getByRole('status')).toContainText('處方藥');
   await expect(
     page.getByRole('heading', { name: 'Sample </script> A' }),
   ).toHaveCount(0);
-  await canvas.click({
-    position: { x: bounds.width * 0.425, y: bounds.height * 0.23 },
-  });
+  await selectFirst3DSlot(page);
   await expect(
     page.getByRole('heading', { name: 'Sample </script> A' }),
   ).toBeVisible();
@@ -115,6 +109,9 @@ test('首頁、個人藥品、七架、格位、離線成果與重置', async ({
     await viewer
       .getByRole('button', { name: 'OTC-01 · 教學架', exact: true })
       .tap();
+    await expect(
+      viewer.getByRole('list', { name: '格位資訊' }).getByText('1 · Sample </script> A'),
+    ).toBeVisible();
     await selectFirst3DSlot(viewer, true);
     await expect(
       viewer.getByRole('heading', { name: 'Sample </script> A' }),
